@@ -49,31 +49,53 @@
     <!-- Filters Section -->
     <section class="filters-section">
         <div class="container">
-            <div class="filters-container">
+            <div class="filters-container filters-compact">
+                <!-- Technique Category Filter (High Level) -->
+                <div class="filter-group">
+                    <label for="technique-category-filter">
+                        <span class="filter-icon">⚔️</span>
+                        Technique
+                    </label>
+                    <select id="technique-category-filter" class="filter-select">
+                        <option value="">All Types</option>
+                        <option value="pass">Pass</option>
+                        <option value="sweep">Sweep</option>
+                        <option value="submission">Submission</option>
+                        <option value="takedown">Takedown</option>
+                        <option value="technique">Others</option>
+                    </select>
+                </div>
+
                 <!-- Guard Type Filter -->
                 <div class="filter-group">
                     <label for="guard-filter">
                         <span class="filter-icon">🛡️</span>
-                        Guard Type
+                        Guard
                     </label>
                     <select id="guard-filter" class="filter-select">
                         <option value="">All Guards</option>
                     </select>
                 </div>
 
-                <!-- Technique Type Filter -->
+                <!-- Pass Filter (Detailed) -->
                 <div class="filter-group">
-                    <label for="technique-filter">
-                        <span class="filter-icon">⚔️</span>
-                        Technique
+                    <label for="pass-filter">
+                        <span class="filter-icon">🚶</span>
+                        Pass Detail
                     </label>
-                    <select id="technique-filter" class="filter-select">
-                        <option value="">All Techniques</option>
-                        <option value="pass">Pass</option>
-                        <option value="sweep">Sweep</option>
-                        <option value="submission">Submission</option>
-                        <option value="position">Position</option>
-                        <option value="technique">Other Techniques</option>
+                    <select id="pass-filter" class="filter-select">
+                        <option value="">All Passes</option>
+                    </select>
+                </div>
+
+                <!-- Sweep Filter (Detailed) -->
+                <div class="filter-group">
+                    <label for="sweep-filter">
+                        <span class="filter-icon">🌀</span>
+                        Sweep Detail
+                    </label>
+                    <select id="sweep-filter" class="filter-select">
+                        <option value="">All Sweeps</option>
                     </select>
                 </div>
 
@@ -88,14 +110,25 @@
                     </select>
                 </div>
 
-                <!-- Submission Filter -->
+                <!-- Submission Filter (Detailed) -->
                 <div class="filter-group">
                     <label for="submission-filter">
                         <span class="filter-icon">🎯</span>
-                        Submission
+                        Sub Detail
                     </label>
                     <select id="submission-filter" class="filter-select">
-                        <option value="">All Submissions</option>
+                        <option value="">All Subs</option>
+                    </select>
+                </div>
+
+                <!-- Takedown Filter (Detailed) -->
+                <div class="filter-group">
+                    <label for="takedown-filter">
+                        <span class="filter-icon">🥋</span>
+                        Takedown Detail
+                    </label>
+                    <select id="takedown-filter" class="filter-select">
+                        <option value="">All Takedowns</option>
                     </select>
                 </div>
 
@@ -110,12 +143,10 @@
                     </select>
                 </div>
 
-                
-
                 <!-- Reset Button -->
                 <div class="filter-group">
-                    <button id="reset-filters" class="btn-reset">
-                        Reset Filters
+                    <button id="reset-filters" class="btn-reset btn-reset-compact">
+                        Reset
                     </button>
                 </div>
             </div>

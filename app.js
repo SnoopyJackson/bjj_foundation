@@ -3,14 +3,17 @@ class BJJFoundation {
     constructor() {
         // Limit number of cards rendered by default for speed. When the user is
         // actively searching, all matching cards will be rendered.
-        this.DEFAULT_MAX_CARDS = 60;
+        this.DEFAULT_MAX_CARDS = 1000
         this.videos = [];
         this.filteredVideos = [];
         this.filters = {
+            techniqueCategory: '', // High-level filter: pass, sweep, submission, takedown, technique
             guard: '',
-            technique: '',
+            pass: '',
+            sweep: '',
             position: '',
             submission: '',
+            takedown: '',
             channel: ''
         };
         this.searchQuery = '';
@@ -47,8 +50,11 @@ class BJJFoundation {
     populateFilters() {
         // Collect all unique values from classifications
         const guards = new Set();
+        const passes = new Set();
+        const sweeps = new Set();
         const positions = new Set();
         const submissions = new Set();
+        const takedowns = new Set();
         const channels = new Set();
 
         this.videos.forEach(video => {
@@ -57,6 +63,14 @@ class BJJFoundation {
                 if (video.classification.guard_type) {
                     video.classification.guard_type.forEach(guard => guards.add(guard));
                 }
+                // Passes
+                if (video.classification.pass) {
+                    video.classification.pass.forEach(pass => passes.add(pass));
+                }
+                // Sweeps
+                if (video.classification.sweep) {
+                    video.classification.sweep.forEach(sweep => sweeps.add(sweep));
+                }
                 // Positions
                 if (video.classification.position) {
                     video.classification.position.forEach(pos => positions.add(pos));
@@ -64,6 +78,10 @@ class BJJFoundation {
                 // Submissions
                 if (video.classification.submission) {
                     video.classification.submission.forEach(sub => submissions.add(sub));
+                }
+                // Takedowns
+                if (video.classification.takedown) {
+                    video.classification.takedown.forEach(td => takedowns.add(td));
                 }
             }
 
@@ -80,6 +98,24 @@ class BJJFoundation {
             option.value = guard.toLowerCase();
             option.textContent = guard;
             guardFilter.appendChild(option);
+        });
+
+        // Populate pass filter
+        const passFilter = document.getElementById('pass-filter');
+        Array.from(passes).sort().forEach(pass => {
+            const option = document.createElement('option');
+            option.value = pass.toLowerCase();
+            option.textContent = pass;
+            passFilter.appendChild(option);
+        });
+
+        // Populate sweep filter
+        const sweepFilter = document.getElementById('sweep-filter');
+        Array.from(sweeps).sort().forEach(sweep => {
+            const option = document.createElement('option');
+            option.value = sweep.toLowerCase();
+            option.textContent = sweep;
+            sweepFilter.appendChild(option);
         });
 
         // Populate position filter
@@ -100,6 +136,15 @@ class BJJFoundation {
             submissionFilter.appendChild(option);
         });
 
+        // Populate takedown filter
+        const takedownFilter = document.getElementById('takedown-filter');
+        Array.from(takedowns).sort().forEach(takedown => {
+            const option = document.createElement('option');
+            option.value = takedown.toLowerCase();
+            option.textContent = takedown;
+            takedownFilter.appendChild(option);
+        });
+
         // Populate channel filter
         const channelFilter = document.getElementById('channel-filter');
         Array.from(channels).sort().forEach(channel => {
@@ -107,12 +152,6 @@ class BJJFoundation {
             option.value = channel.toLowerCase();
             option.textContent = channel;
             channelFilter.appendChild(option);
-        });
-
-        // Add event listener for channel filter
-        document.getElementById('channel-filter').addEventListener('change', (e) => {
-            this.filters.channel = e.target.value;
-            this.applyFilters();
         });
     }
 
@@ -136,13 +175,23 @@ class BJJFoundation {
         });
 
         // Filter change events
+        document.getElementById('technique-category-filter').addEventListener('change', (e) => {
+            this.filters.techniqueCategory = e.target.value;
+            this.applyFilters();
+        });
+
         document.getElementById('guard-filter').addEventListener('change', (e) => {
             this.filters.guard = e.target.value;
             this.applyFilters();
         });
 
-        document.getElementById('technique-filter').addEventListener('change', (e) => {
-            this.filters.technique = e.target.value;
+        document.getElementById('pass-filter').addEventListener('change', (e) => {
+            this.filters.pass = e.target.value;
+            this.applyFilters();
+        });
+
+        document.getElementById('sweep-filter').addEventListener('change', (e) => {
+            this.filters.sweep = e.target.value;
             this.applyFilters();
         });
 
@@ -153,6 +202,11 @@ class BJJFoundation {
 
         document.getElementById('submission-filter').addEventListener('change', (e) => {
             this.filters.submission = e.target.value;
+            this.applyFilters();
+        });
+
+        document.getElementById('takedown-filter').addEventListener('change', (e) => {
+            this.filters.takedown = e.target.value;
             this.applyFilters();
         });
 
@@ -184,6 +238,12 @@ class BJJFoundation {
 
             if (!video.classification) return false;
 
+            // Technique Category filter (high-level)
+            if (this.filters.techniqueCategory) {
+                const hasCategory = video.classification[this.filters.techniqueCategory]?.length > 0;
+                if (!hasCategory) return false;
+            }
+
             // Guard filter
             if (this.filters.guard) {
                 const hasGuard = video.classification.guard_type?.some(
@@ -192,10 +252,20 @@ class BJJFoundation {
                 if (!hasGuard) return false;
             }
 
-            // Technique filter
-            if (this.filters.technique) {
-                const hasTechnique = video.classification[this.filters.technique]?.length > 0;
-                if (!hasTechnique) return false;
+            // Pass filter (detailed)
+            if (this.filters.pass) {
+                const hasPass = video.classification.pass?.some(
+                    pass => pass.toLowerCase() === this.filters.pass
+                );
+                if (!hasPass) return false;
+            }
+
+            // Sweep filter (detailed)
+            if (this.filters.sweep) {
+                const hasSweep = video.classification.sweep?.some(
+                    sweep => sweep.toLowerCase() === this.filters.sweep
+                );
+                if (!hasSweep) return false;
             }
 
             // Position filter
@@ -206,12 +276,20 @@ class BJJFoundation {
                 if (!hasPosition) return false;
             }
 
-            // Submission filter
+            // Submission filter (detailed)
             if (this.filters.submission) {
                 const hasSubmission = video.classification.submission?.some(
                     sub => sub.toLowerCase() === this.filters.submission
                 );
                 if (!hasSubmission) return false;
+            }
+
+            // Takedown filter (detailed)
+            if (this.filters.takedown) {
+                const hasTakedown = video.classification.takedown?.some(
+                    td => td.toLowerCase() === this.filters.takedown
+                );
+                if (!hasTakedown) return false;
             }
 
             // Channel filter
@@ -326,21 +404,44 @@ class BJJFoundation {
             });
         }
 
+        // Add pass tags
+        if (classification.pass && classification.pass.length > 0) {
+            classification.pass.slice(0, 2).forEach(pass => {
+                tags.push(`<span class="tag pass">🚶 ${this.escapeHtml(pass)}</span>`);
+            });
+        }
+
         // Add sweep tags
-        if (classification.sweep) {
-            classification.sweep.forEach(sweep => {
+        if (classification.sweep && classification.sweep.length > 0) {
+            classification.sweep.slice(0, 2).forEach(sweep => {
                 tags.push(`<span class="tag sweep">🌀 ${this.escapeHtml(sweep)}</span>`);
             });
         }
 
-        if (classification.submission) {
-            classification.submission.forEach(sub => {
+        // Add submission tags
+        if (classification.submission && classification.submission.length > 0) {
+            classification.submission.slice(0, 2).forEach(sub => {
                 tags.push(`<span class="tag submission">🎯 ${this.escapeHtml(sub)}</span>`);
             });
         }
 
-        if (classification.technique) {
-            classification.technique.slice(0, 3).forEach(tech => {
+        // Add takedown tags
+        if (classification.takedown && classification.takedown.length > 0) {
+            classification.takedown.slice(0, 2).forEach(td => {
+                tags.push(`<span class="tag takedown">🥋 ${this.escapeHtml(td)}</span>`);
+            });
+        }
+
+        // Add position tags
+        if (classification.position && classification.position.length > 0) {
+            classification.position.slice(0, 2).forEach(pos => {
+                tags.push(`<span class="tag position">📍 ${this.escapeHtml(pos)}</span>`);
+            });
+        }
+
+        // Add other technique tags (limited to avoid clutter)
+        if (classification.technique && classification.technique.length > 0) {
+            classification.technique.slice(0, 2).forEach(tech => {
                 tags.push(`<span class="tag">⚡ ${this.escapeHtml(tech)}</span>`);
             });
         }
@@ -434,10 +535,13 @@ class BJJFoundation {
     resetFilters() {
         // Reset filter object
         this.filters = {
+            techniqueCategory: '',
             guard: '',
-            technique: '',
+            pass: '',
+            sweep: '',
             position: '',
             submission: '',
+            takedown: '',
             channel: ''
         };
 
@@ -447,13 +551,15 @@ class BJJFoundation {
         document.getElementById('clear-search').style.display = 'none';
 
         // Reset select elements
+        document.getElementById('technique-category-filter').value = '';
         document.getElementById('guard-filter').value = '';
-        document.getElementById('technique-filter').value = '';
+        document.getElementById('pass-filter').value = '';
+        document.getElementById('sweep-filter').value = '';
         document.getElementById('position-filter').value = '';
         document.getElementById('submission-filter').value = '';
-    // Reset channel select
-    const channelSelect = document.getElementById('channel-filter');
-    if (channelSelect) channelSelect.value = '';
+        document.getElementById('takedown-filter').value = '';
+        const channelSelect = document.getElementById('channel-filter');
+        if (channelSelect) channelSelect.value = '';
 
         // Reapply filters (will show all)
         this.applyFilters();
