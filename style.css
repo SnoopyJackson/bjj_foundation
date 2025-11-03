@@ -621,11 +621,13 @@ body {
     }
 
     .search-section {
+        position: relative;
         top: 0;
         padding: 20px 0;
     }
 
     .header.scrolled ~ .search-section {
+        position: sticky;
         top: 53px;
     }
 
@@ -635,7 +637,9 @@ body {
     }
 
     .filters-section {
-        top: 138px;
+        position: relative;
+        top: 0;
+        padding: 20px 0;
     }
 
     .filters-container {
@@ -708,7 +712,9 @@ body {
     }
 
     .filters-section {
-        padding: 20px 0;
+        position: relative;
+        top: 0;
+        padding: 15px 0;
     }
 
     .filter-select {
