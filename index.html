@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BJJ Foundation - The Encyclopedia Galactica of Brazilian Jiu-Jitsu</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Hero Banner -->
+    <section class="hero-banner">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="container">
+                <div class="logo">
+                    <h1>BJJ FOUNDATION</h1>
+                    <p class="tagline">The Encyclopedia Galactica of Brazilian Jiu-Jitsu</p>
+                    <p class="hero-subtitle">Preserving techniques across the galaxy • 1,975+ Videos</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-compact">
+                <span class="header-title">BJJ FOUNDATION</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Search Section -->
+    <section class="search-section">
+        <div class="container">
+            <div class="search-container">
+                <div class="search-box">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="search-input" placeholder="Search techniques by title, description, or tags..." class="search-input">
+                    <button id="clear-search" class="clear-search" style="display: none;">✕</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filters Section -->
+    <section class="filters-section">
+        <div class="container">
+            <div class="filters-container">
+                <!-- Guard Type Filter -->
+                <div class="filter-group">
+                    <label for="guard-filter">
+                        <span class="filter-icon">🛡️</span>
+                        Guard Type
+                    </label>
+                    <select id="guard-filter" class="filter-select">
+                        <option value="">All Guards</option>
+                    </select>
+                </div>
+
+                <!-- Technique Type Filter -->
+                <div class="filter-group">
+                    <label for="technique-filter">
+                        <span class="filter-icon">⚔️</span>
+                        Technique
+                    </label>
+                    <select id="technique-filter" class="filter-select">
+                        <option value="">All Techniques</option>
+                        <option value="pass">Pass</option>
+                        <option value="sweep">Sweep</option>
+                        <option value="submission">Submission</option>
+                        <option value="position">Position</option>
+                        <option value="technique">Other Techniques</option>
+                    </select>
+                </div>
+
+                <!-- Position Filter -->
+                <div class="filter-group">
+                    <label for="position-filter">
+                        <span class="filter-icon">📍</span>
+                        Position
+                    </label>
+                    <select id="position-filter" class="filter-select">
+                        <option value="">All Positions</option>
+                    </select>
+                </div>
+
+                <!-- Submission Filter -->
+                <div class="filter-group">
+                    <label for="submission-filter">
+                        <span class="filter-icon">🎯</span>
+                        Submission
+                    </label>
+                    <select id="submission-filter" class="filter-select">
+                        <option value="">All Submissions</option>
+                    </select>
+                </div>
+
+                <!-- Reset Button -->
+                <div class="filter-group">
+                    <button id="reset-filters" class="btn-reset">
+                        Reset Filters
+                    </button>
+                </div>
+            </div>
+
+            <!-- Results Counter -->
+            <div class="results-info">
+                <span id="results-count">Loading videos...</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Videos Grid -->
+    <section class="videos-section">
+        <div class="container">
+            <div id="videos-grid" class="videos-grid">
+                <!-- Video cards will be inserted here by JavaScript -->
+            </div>
+            
+            <!-- Loading Indicator -->
+            <div id="loading" class="loading">
+                <div class="loading-spinner"></div>
+                <p>Initializing Foundation Database...</p>
+            </div>
+
+            <!-- No Results Message -->
+            <div id="no-results" class="no-results" style="display: none;">
+                <div class="no-results-content">
+                    <span class="no-results-icon">🔍</span>
+                    <h3>No Techniques Found</h3>
+                    <p>Try adjusting your filters to discover more techniques.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 BJJ Foundation - Preserving the knowledge of techniques across the galaxy</p>
+            <p class="quote">"Violence is the last refuge of the incompetent... but in BJJ, technique is the refuge of the knowledgeable."</p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
