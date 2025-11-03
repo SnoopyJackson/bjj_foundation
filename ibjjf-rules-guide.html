@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IBJJF Rules Guide</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="ibjjf-rules-guide.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
+                <div>
+                    <h1>🥋 IBJJF Rules Guide</h1>
+                    <p class="subtitle">Master Brazilian Jiu-Jitsu Competition Rules</p>
+                </div>
+                <div>
+                    <button id="backButton" class="btn-reset">Back</button>
+                </div>
+            </div>
+        </header>
+
+        <div class="nav-tabs">
+            <button class="tab-btn active" onclick="switchTab('points', this)">Scoring System</button>
+            <button class="tab-btn" onclick="switchTab('advantages', this)">Advantages</button>
+            <button class="tab-btn" onclick="switchTab('penalties', this)">Penalties</button>
+            <button class="tab-btn" onclick="switchTab('illegal', this)">Illegal Moves</button>
+            <button class="tab-btn" onclick="switchTab('quiz', this)">Quiz 🎯</button>
+        </div>
+
+        <!-- POINTS SECTION -->
+        <div id="points" class="content-section active">
+            <div class="cards-grid">
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Takedown</div>
+                        <div class="points-badge">2 PTS</div>
+                    </div>
+                    <div class="card-icon">🤼</div>
+                    <div class="card-description">
+                        Taking opponent from standing to the ground with you landing on top in a controlled position.
+                    </div>
+                    <div class="info-box requirements">
+                        <h4>✓ Requirements:</h4>
+                        <ul>
+                            <li>Opponent's back must touch the mat</li>
+                            <li>You must establish top position</li>
+                            <li>Hold control for 3 seconds</li>
+                        </ul>
+                    </div>
+                    <div class="note-box">
+                        <strong>Note:</strong> If you throw but land on bottom, the thrower gets 2 points and top person gets 1 advantage.
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Sweep</div>
+                        <div class="points-badge">2 PTS</div>
+                    </div>
+                    <div class="card-icon">🔄</div>
+                    <div class="card-description">
+                        Reversing position from bottom guard to top, establishing control over opponent.
+                    </div>
+                    <div class="info-box requirements">
+                        <h4>✓ Requirements:</h4>
+                        <ul>
+                            <li>Must start from guard position</li>
+                            <li>End on top with control</li>
+                            <li>Maintain position for 3 seconds</li>
+                        </ul>
+                    </div>
+                    <div class="info-box exceptions">
+                        <h4>✗ No Points If:</h4>
+                        <ul>
+                            <li>Opponent stands up before 3 seconds</li>
+                            <li>No clear control established</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Knee on Belly</div>
+                        <div class="points-badge">2 PTS</div>
+                    </div>
+                    <div class="card-icon">🦵</div>
+                    <div class="card-description">
+                        Placing your knee on opponent's torso while maintaining balance with other foot on ground.
+                    </div>
+                    <div class="info-box requirements">
+                        <h4>✓ Requirements:</h4>
+                        <ul>
+                            <li>One knee on torso/belly</li>
+                            <li>Other foot planted on ground</li>
+                            <li>Hold for 3 seconds</li>
+                        </ul>
+                    </div>
+                    <div class="note-box">
+                        <strong>Note:</strong> If other knee is on ground = Advantage only. Switching sides does NOT give new points.
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Guard Pass</div>
+                        <div class="points-badge">3 PTS</div>
+                    </div>
+                    <div class="card-icon">➡️</div>
+                    <div class="card-description">
+                        Moving past opponent's legs to establish side control or similar dominant position.
+                    </div>
+                    <div class="info-box requirements">
+                        <h4>✓ Requirements:</h4>
+                        <ul>
+                            <li>Start between opponent's legs</li>
+                            <li>Reach side control, north-south, or mount</li>
+                            <li>Be perpendicular or parallel to opponent</li>
+                            <li>Hold 3 seconds with control</li>
+                        </ul>
+                    </div>
+                    <div class="info-box exceptions">
+                        <h4>✗ Advantage Only If:</h4>
+                        <ul>
+                            <li>Opponent gets to knees or stands</li>
+                            <li>Position not held 3 seconds</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Mount</div>
+                        <div class="points-badge">4 PTS</div>
+                    </div>
+                    <div class="card-icon">⬆️</div>
+                    <div class="card-description">
+                        Sitting on opponent's torso with weight distributed - one of the most dominant positions.
+                    </div>
+                    <div class="info-box requirements">
+                        <h4>✓ Requirements:</h4>
+                        <ul>
+                            <li>Sitting on opponent's torso</li>
+                            <li>Can mount one arm, NEVER both</li>
+                            <li>Legs/feet must NOT be on opponent's legs</li>
+                            <li>Hold for 3 seconds</li>
+                        </ul>
+                    </div>
+                    <div class="info-box exceptions">
+                        <h4>✗ Advantage Only If:</h4>
+                        <ul>
+                            <li>Both opponent's arms trapped under you</li>
+                            <li>Mounted triangle position</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Back Control</div>
+                        <div class="points-badge">4 PTS</div>
+                    </div>
+                    <div class="card-icon">🎯</div>
+                    <div class="card-description">
+                        Taking opponent's back with hooks - the most dominant position for submissions.
+                    </div>
+                    <div class="info-box requirements">
+                        <h4>✓ Requirements:</h4>
+                        <ul>
+                            <li>Both hooks inside opponent's thighs</li>
+                            <li>Heels on inner thighs</li>
+                            <li>Control of upper body</li>
+                            <li>Hold for 3 seconds</li>
+                        </ul>
+                    </div>
+                    <div class="info-box exceptions">
+                        <h4>✗ Advantage Only If:</h4>
+                        <ul>
+                            <li>Body triangle instead of hooks</li>
+                            <li>Crossed feet without hooks</li>
+                            <li>Both opponent's arms trapped</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ADVANTAGES SECTION -->
+        <div id="advantages" class="content-section">
+            <div class="cards-grid">
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">What Are Advantages?</div>
+                    </div>
+                    <div class="card-icon">➕</div>
+                    <div class="card-description">
+                        Advantages are awarded for nearly completing scoring positions or threatening submissions. They break ties when points are equal.
+                    </div>
+                    <div class="info-box requirements">
+                        <h4>Awarded For:</h4>
+                        <ul>
+                            <li>Nearly completing a takedown</li>
+                            <li>Positions held less than 3 seconds</li>
+                            <li>Close submission attempts</li>
+                            <li>Almost passing guard</li>
+                            <li>Coming on top after both pull guard</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Incomplete Positions</div>
+                    </div>
+                    <div class="card-icon">⏱️</div>
+                    <div class="card-description">
+                        These situations earn advantages instead of full points due to incomplete control.
+                    </div>
+                    <div class="info-box requirements">
+                        <h4>Examples:</h4>
+                        <ul>
+                            <li>Mount with both arms trapped = Advantage</li>
+                            <li>Back control with body triangle = Advantage</li>
+                            <li>Knee on belly with other knee down = Advantage</li>
+                            <li>Guard pass but opponent stands = Advantage</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Submission Attempts</div>
+                    </div>
+                    <div class="card-icon">🔒</div>
+                    <div class="card-description">
+                        Close submission attempts that put opponent in danger can earn advantages at referee's discretion.
+                    </div>
+                    <div class="info-box requirements">
+                        <h4>Referee Considers:</h4>
+                        <ul>
+                            <li>Proximity to finishing</li>
+                            <li>Amount of danger</li>
+                            <li>Quality of technique</li>
+                            <li>Opponent's defensive reaction</li>
+                        </ul>
+                    </div>
+                    <div class="note-box">
+                        Advantages for submissions are entirely at referee's discretion.
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Tie-Breaking Order</div>
+                    </div>
+                    <div class="card-icon">⚖️</div>
+                    <div class="card-description">
+                        When scores are tied, this order determines the winner.
+                    </div>
+                    <div class="info-box requirements">
+                        <h4>Priority:</h4>
+                        <ul>
+                            <li><strong>1. Points</strong> (highest priority)</li>
+                            <li><strong>2. Advantages</strong> (second)</li>
+                            <li><strong>3. Penalties</strong> (fewer is better)</li>
+                            <li><strong>4. Referee Decision</strong> (final)</li>
+                        </ul>
+                    </div>
+                    <div class="note-box">
+                        There are NEVER draws in IBJJF - a winner is always declared.
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- PENALTIES SECTION -->
+        <div id="penalties" class="content-section">
+            <div class="cards-grid">
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Penalty System</div>
+                    </div>
+                    <div class="card-icon">⚠️</div>
+                    <div class="card-description">
+                        IBJJF uses penalties for rule violations, stalling, and dangerous actions.
+                    </div>
+                    <div class="info-box requirements">
+                        <h4>Penalty Progression:</h4>
+                        <ul>
+                            <li><strong>1st & 2nd:</strong> Warning</li>
+                            <li><strong>After 2nd:</strong> Opponent gets 1 Advantage</li>
+                            <li><strong>3rd Penalty:</strong> Opponent gets 2 Points</li>
+                            <li><strong>4th Penalty:</strong> Disqualification</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Stalling</div>
+                    </div>
+                    <div class="card-icon">😴</div>
+                    <div class="card-description">
+                        Not engaging with opponent or avoiding action - the most common penalty.
+                    </div>
+                    <div class="info-box exceptions">
+                        <h4>Examples:</h4>
+                        <ul>
+                            <li>Holding position 20+ seconds without progress</li>
+                            <li>Running from sweeps or submissions</li>
+                            <li>Not attempting to pass, sweep, or submit</li>
+                            <li>Pulling guard then standing immediately</li>
+                            <li>Leaving area to avoid techniques</li>
+                        </ul>
+                    </div>
+                    <div class="note-box">
+                        Referee says "LUTE" (fight) and gives 20 seconds. No progress = penalty.
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Technical Fouls</div>
+                    </div>
+                    <div class="card-icon">📋</div>
+                    <div class="card-description">
+                        Minor rule violations that accumulate toward disqualification.
+                    </div>
+                    <div class="info-box exceptions">
+                        <h4>Common Fouls:</h4>
+                        <ul>
+                            <li>Gripping inside gi sleeves/pants</li>
+                            <li>Holding opponent's belt</li>
+                            <li>Talking during match</li>
+                            <li>Not following referee instructions</li>
+                            <li>Repeatedly leaving the mat</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Severe Penalties</div>
+                    </div>
+                    <div class="card-icon">🚫</div>
+                    <div class="card-description">
+                        Immediate disqualification - no warnings given for these violations.
+                    </div>
+                    <div class="info-box exceptions">
+                        <h4>Immediate DQ:</h4>
+                        <ul>
+                            <li>Slamming opponent</li>
+                            <li>Striking in any way</li>
+                            <li>Biting or hair pulling</li>
+                            <li>Illegal submissions for belt level</li>
+                            <li>Disrespecting referee or opponent</li>
+                            <li>Unsportsmanlike conduct</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Fleeing The Mat</div>
+                    </div>
+                    <div class="card-icon">🏃</div>
+                    <div class="card-description">
+                        Deliberately leaving competition area to avoid techniques.
+                    </div>
+                    <div class="info-box exceptions">
+                        <h4>Penalty:</h4>
+                        <ul>
+                            <li><strong>2 Points to Opponent</strong></li>
+                            <li>Match restarted standing</li>
+                            <li>Next offense = Disqualification</li>
+                        </ul>
+                    </div>
+                    <div class="note-box">
+                        One of the few ways to lose 2 points immediately!
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ILLEGAL MOVES SECTION -->
+        <div id="illegal" class="content-section">
+            <div class="cards-grid">
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Belt-Specific Rules</div>
+                    </div>
+                    <div class="card-icon">🥋</div>
+                    <div class="card-description">
+                        Many techniques are illegal at lower belts but become legal as you progress. Always verify your belt level restrictions!
+                    </div>
+                    <div class="note-box">
+                        Check the official IBJJF rulebook for detailed charts showing legality by belt color and age division.
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Slamming</div>
+                    </div>
+                    <div class="card-icon">💥</div>
+                    <div class="card-description">
+                        <strong>ILLEGAL AT ALL LEVELS</strong> - Violently throwing opponent to escape or while lifting.
+                    </div>
+                    <div class="info-box exceptions">
+                        <h4>✗ Examples:</h4>
+                        <ul>
+                            <li>Slamming to escape triangle</li>
+                            <li>Slamming to escape armbar</li>
+                            <li>Powerbombing from any position</li>
+                            <li>Dropping opponent violently</li>
+                        </ul>
+                    </div>
+                    <div class="note-box">
+                        <strong>Result:</strong> Immediate disqualification
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Leg Reaping</div>
+                    </div>
+                    <div class="card-icon">🦵</div>
+                    <div class="card-description">
+                        When your outside leg crosses opponent's midline during leg entanglements.
+                    </div>
+                    <div class="info-box exceptions">
+                        <h4>Status by Belt:</h4>
+                        <ul>
+                            <li><strong>White/Blue/Purple:</strong> ILLEGAL</li>
+                            <li><strong>Brown/Black:</strong> Legal in some contexts</li>
+                        </ul>
+                    </div>
+                    <div class="note-box">
+                        Puts dangerous pressure on knee. Be careful in leg entanglements!
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Neck Cranks</div>
+                    </div>
+                    <div class="card-icon">🚫</div>
+                    <div class="card-description">
+                        Submissions attacking the neck/spine rather than blood choke. Highly restricted.
+                    </div>
+                    <div class="info-box exceptions">
+                        <h4>✗ Illegal:</h4>
+                        <ul>
+                            <li>Full nelson (all belts)</li>
+                            <li>Crucifix neck crank</li>
+                            <li>Twisting neck submissions</li>
+                            <li>Spinal locks ("can opener")</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Leg Attacks</div>
+                    </div>
+                    <div class="card-icon">🦵</div>
+                    <div class="card-description">
+                        Legality depends on belt level and age division.
+                    </div>
+                    <div class="info-box requirements">
+                        <h4>General Rules:</h4>
+                        <ul>
+                            <li><strong>Heel Hooks:</strong> Brown/Black only</li>
+                            <li><strong>Knee Bars:</strong> Purple and above</li>
+                            <li><strong>Toe Holds:</strong> Purple and above</li>
+                            <li><strong>Calf Slicers:</strong> Brown/Black only</li>
+                            <li><strong>Straight Ankle Locks:</strong> Most belts</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Striking & Violence</div>
+                    </div>
+                    <div class="card-icon">👊</div>
+                    <div class="card-description">
+                        <strong>ALWAYS ILLEGAL</strong> - BJJ is a grappling art only.
+                    </div>
+                    <div class="info-box exceptions">
+                        <h4>✗ Immediate DQ:</h4>
+                        <ul>
+                            <li>Punching or slapping</li>
+                            <li>Kicking</li>
+                            <li>Headbutting</li>
+                            <li>Biting</li>
+                            <li>Eye gouging</li>
+                            <li>Hair pulling</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Small Joint Manipulation</div>
+                    </div>
+                    <div class="card-icon">🖐️</div>
+                    <div class="card-description">
+                        Grabbing and manipulating individual fingers or toes is illegal.
+                    </div>
+                    <div class="info-box exceptions">
+                        <h4>✗ Never Allowed:</h4>
+                        <ul>
+                            <li>Bending individual fingers</li>
+                            <li>Twisting individual toes</li>
+                            <li>Small joint locks</li>
+                        </ul>
+                    </div>
+                    <div class="note-box">
+                        Wrist locks are legal at purple belt and above.
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- QUIZ SECTION -->
+        <div id="quiz" class="content-section">
+            <div class="quiz-container">
+                <div class="quiz-header">
+                    <h2>🎯 Test Your Knowledge</h2>
+                    <div class="score-display" id="scoreDisplay">Score: 0/0</div>
+                </div>
+                
+                <div id="quizContent">
+                    <div class="question-box">
+                        <div class="question-text" id="questionText"></div>
+                    </div>
+                    
+                    <div class="options-container" id="optionsContainer"></div>
+                    
+                    <div class="quiz-actions">
+                        <button class="quiz-btn" id="submitBtn" onclick="checkAnswer()">Submit Answer</button>
+                        <button class="quiz-btn" id="nextBtn" onclick="nextQuestion()" style="display: none;">Next Question</button>
+                    </div>
+                </div>
+
+                <div id="resultsContent" style="display: none;"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="ibjjf-rules-guide.js"></script>
+    <script>
+        (function(){
+            const backBtn = document.getElementById('backButton');
+            if (!backBtn) return;
+            backBtn.addEventListener('click', () => {
+                if (window.history.length > 1) {
+                    window.history.back();
+                } else {
+                    window.location.href = 'index.html';
+                }
+            });
+        })();
+    </script>
+</body>
+</html>

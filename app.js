@@ -1,13 +1,17 @@
 // BJJ Foundation - Main Application
 class BJJFoundation {
     constructor() {
+        // Limit number of cards rendered by default for speed. When the user is
+        // actively searching, all matching cards will be rendered.
+        this.DEFAULT_MAX_CARDS = 60;
         this.videos = [];
         this.filteredVideos = [];
         this.filters = {
             guard: '',
             technique: '',
             position: '',
-            submission: ''
+            submission: '',
+            channel: ''
         };
         this.searchQuery = '';
         
@@ -45,6 +49,7 @@ class BJJFoundation {
         const guards = new Set();
         const positions = new Set();
         const submissions = new Set();
+        const channels = new Set();
 
         this.videos.forEach(video => {
             if (video.classification) {
@@ -60,6 +65,11 @@ class BJJFoundation {
                 if (video.classification.submission) {
                     video.classification.submission.forEach(sub => submissions.add(sub));
                 }
+            }
+
+            // Channels
+            if (video.channel_name) {
+                channels.add(video.channel_name);
             }
         });
 
@@ -88,6 +98,21 @@ class BJJFoundation {
             option.value = submission.toLowerCase();
             option.textContent = submission;
             submissionFilter.appendChild(option);
+        });
+
+        // Populate channel filter
+        const channelFilter = document.getElementById('channel-filter');
+        Array.from(channels).sort().forEach(channel => {
+            const option = document.createElement('option');
+            option.value = channel.toLowerCase();
+            option.textContent = channel;
+            channelFilter.appendChild(option);
+        });
+
+        // Add event listener for channel filter
+        document.getElementById('channel-filter').addEventListener('change', (e) => {
+            this.filters.channel = e.target.value;
+            this.applyFilters();
         });
     }
 
@@ -128,6 +153,11 @@ class BJJFoundation {
 
         document.getElementById('submission-filter').addEventListener('change', (e) => {
             this.filters.submission = e.target.value;
+            this.applyFilters();
+        });
+
+        document.getElementById('channel-filter').addEventListener('change', (e) => {
+            this.filters.channel = e.target.value;
             this.applyFilters();
         });
 
@@ -184,7 +214,20 @@ class BJJFoundation {
                 if (!hasSubmission) return false;
             }
 
+            // Channel filter
+            if (this.filters.channel) {
+                const hasChannel = video.channel_name?.toLowerCase() === this.filters.channel;
+                if (!hasChannel) return false;
+            }
+
             return true;
+        });
+
+        // Sort by view count (highest to lowest)
+        this.filteredVideos.sort((a, b) => {
+            const viewsA = parseInt(a.view_count) || 0;
+            const viewsB = parseInt(b.view_count) || 0;
+            return viewsB - viewsA;
         });
 
         this.renderVideos();
@@ -210,11 +253,25 @@ class BJJFoundation {
 
         noResults.style.display = 'none';
 
-        // Render video cards
-        this.filteredVideos.forEach(video => {
-            const card = this.createVideoCard(video);
+        // Decide how many cards to render: render all if the user is searching
+        // or if the total is small; otherwise limit for speed.
+        const isSearching = !!this.searchQuery;
+        const maxToRender = isSearching ? this.filteredVideos.length : Math.min(this.filteredVideos.length, this.DEFAULT_MAX_CARDS);
+
+        for (let i = 0; i < maxToRender; i++) {
+            const card = this.createVideoCard(this.filteredVideos[i]);
             grid.appendChild(card);
-        });
+        }
+
+        // If we trimmed the results, show a small hint at the bottom
+        if (!isSearching && this.filteredVideos.length > this.DEFAULT_MAX_CARDS) {
+            const hint = document.createElement('div');
+            hint.className = 'results-hint';
+            hint.textContent = `Showing ${this.DEFAULT_MAX_CARDS} of ${this.filteredVideos.length} matches — refine search or filters to see more`;
+            hint.style.marginTop = '12px';
+            hint.style.color = 'var(--text-secondary)';
+            grid.appendChild(hint);
+        }
     }
 
     createVideoCard(video) {
@@ -227,6 +284,9 @@ class BJJFoundation {
             ? `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`
             : 'https://via.placeholder.com/480x360?text=No+Thumbnail';
 
+        // Get language flag
+        const languageFlag = this.getLanguageFlag(video.language);
+
         // Create tags HTML
         const tagsHTML = this.createTagsHTML(video.classification);
 
@@ -234,6 +294,7 @@ class BJJFoundation {
             <div class="video-thumbnail">
                 <img src="${thumbnailUrl}" alt="${this.escapeHtml(video.title)}" 
                      onerror="this.src='https://via.placeholder.com/480x360?text=No+Thumbnail'">
+                ${languageFlag ? `<div class="language-flag">${languageFlag}</div>` : ''}
                 <div class="play-overlay"></div>
             </div>
             <div class="video-content">
@@ -258,24 +319,10 @@ class BJJFoundation {
 
         const tags = [];
 
-        // Add guard tags
-        if (classification.guard_type) {
-            classification.guard_type.forEach(guard => {
-                tags.push(`<span class="tag guard">🛡️ ${this.escapeHtml(guard)}</span>`);
-            });
-        }
-
-        // Add position tags
-        if (classification.position) {
-            classification.position.forEach(pos => {
-                tags.push(`<span class="tag">📍 ${this.escapeHtml(pos)}</span>`);
-            });
-        }
-
-        // Add pass tags
-        if (classification.pass) {
-            classification.pass.forEach(pass => {
-                tags.push(`<span class="tag pass">⚔️ ${this.escapeHtml(pass)}</span>`);
+        // Add guard tags first (show up to first two guard types as tags)
+        if (classification.guard_type && classification.guard_type.length > 0) {
+            classification.guard_type.slice(0, 2).forEach(g => {
+                tags.push(`<span class="tag guard">${this.escapeHtml(g)}</span>`);
             });
         }
 
@@ -286,14 +333,12 @@ class BJJFoundation {
             });
         }
 
-        // Add submission tags
         if (classification.submission) {
             classification.submission.forEach(sub => {
                 tags.push(`<span class="tag submission">🎯 ${this.escapeHtml(sub)}</span>`);
             });
         }
 
-        // Add other technique tags (limit to 3)
         if (classification.technique) {
             classification.technique.slice(0, 3).forEach(tech => {
                 tags.push(`<span class="tag">⚡ ${this.escapeHtml(tech)}</span>`);
@@ -305,7 +350,7 @@ class BJJFoundation {
 
     extractVideoId(url) {
         if (!url) return null;
-        
+
         // Handle different YouTube URL formats
         const patterns = [
             /(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\n?#]+)/,
@@ -338,6 +383,36 @@ class BJJFoundation {
         return views.toLocaleString();
     }
 
+    getLanguageFlag(languageCode) {
+        const languageFlags = {
+            'en': '🇺🇸', // English
+            'pt': '🇧🇷', // Portuguese
+            'es': '🇪🇸', // Spanish
+            'fr': '🇫🇷', // French
+            'de': '🇩🇪', // German
+            'it': '🇮🇹', // Italian
+            'ja': '🇯🇵', // Japanese
+            'ko': '🇰🇷', // Korean
+            'ru': '🇷🇺', // Russian
+            'pl': '🇵🇱', // Polish
+            'nl': '🇳🇱', // Dutch
+            'sv': '🇸🇪', // Swedish
+            'no': '🇳🇴', // Norwegian
+            'da': '🇩🇰', // Danish
+            'fi': '🇫🇮', // Finnish
+            'tr': '🇹🇷', // Turkish
+            'ar': '🇸🇦', // Arabic
+            'hi': '🇮🇳', // Hindi
+            'th': '🇹🇭', // Thai
+            'vi': '🇻🇳', // Vietnamese
+            'id': '🇮🇩', // Indonesian
+        };
+
+        // Try to match the full code first, then fall back to language prefix
+        const flag = languageFlags[languageCode] || languageFlags[languageCode.split('-')[0]];
+        return flag || '🌐'; // Globe emoji as fallback
+    }
+
     updateResultsCount() {
         const count = document.getElementById('results-count');
         const total = this.videos.length;
@@ -346,7 +421,13 @@ class BJJFoundation {
         if (filtered === total) {
             count.textContent = `Showing all ${total} techniques`;
         } else {
-            count.textContent = `Showing ${filtered} of ${total} techniques`;
+            // If we are not searching and results are trimmed, indicate the
+            // number shown vs the total matches here as well.
+            if (!this.searchQuery && filtered > this.DEFAULT_MAX_CARDS) {
+                count.textContent = `Showing ${this.DEFAULT_MAX_CARDS} of ${filtered} matching techniques (refine search to see more)`;
+            } else {
+                count.textContent = `Showing ${filtered} of ${total} techniques`;
+            }
         }
     }
 
@@ -356,7 +437,8 @@ class BJJFoundation {
             guard: '',
             technique: '',
             position: '',
-            submission: ''
+            submission: '',
+            channel: ''
         };
 
         // Reset search
@@ -369,6 +451,9 @@ class BJJFoundation {
         document.getElementById('technique-filter').value = '';
         document.getElementById('position-filter').value = '';
         document.getElementById('submission-filter').value = '';
+    // Reset channel select
+    const channelSelect = document.getElementById('channel-filter');
+    if (channelSelect) channelSelect.value = '';
 
         // Reapply filters (will show all)
         this.applyFilters();

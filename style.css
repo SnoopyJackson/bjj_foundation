@@ -417,6 +417,26 @@ body {
     transform: scale(1.05);
 }
 
+.language-flag {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(10, 14, 39, 0.85);
+    backdrop-filter: blur(5px);
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    border: 2px solid var(--accent-gold);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    z-index: 2;
+    transition: all 0.3s ease;
+}
+
+.video-card:hover .language-flag {
+    transform: scale(1.1);
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+}
+
 .play-overlay {
     position: absolute;
     top: 50%;
@@ -430,6 +450,7 @@ body {
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
+    z-index: 1;
 }
 
 .play-overlay::after {
