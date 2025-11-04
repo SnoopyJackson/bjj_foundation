@@ -5,6 +5,8 @@ class BJJFoundation {
         // actively searching, all matching cards will be rendered.
         this.DEFAULT_MAX_CARDS = 1000
         this.videos = [];
+        this.fightVideos = [];
+        this.allVideos = []; // Combined array of technique and fight videos
         this.filteredVideos = [];
         this.filters = {
             techniqueCategory: '', // High-level filter: pass, sweep, submission, takedown, technique
@@ -14,9 +16,65 @@ class BJJFoundation {
             position: '',
             submission: '',
             takedown: '',
-            channel: ''
+            channel: '',
+            athlete: '' // Fight athlete filter
         };
         this.searchQuery = '';
+        
+        // Top BJJ athletes for filtering
+        this.TOP_ATHLETES = [
+            'Gordon Ryan',
+            'Mikey Musumeci',
+            'Tye Ruotolo',
+            'Kade Ruotolo',
+            'Nicholas Meregali',
+            'Felipe Pena',
+            'Lachlan Giles',
+            'Craig Jones',
+            'Kaynan Duarte',
+            'Mica Galvao',
+            'Marcus Almeida',
+            'Leandro Lo',
+            'Andre Galvao',
+            'Roger Gracie',
+            'Marcelo Garcia',
+            'Rafael Mendes',
+            'Gui Mendes',
+            'Cobrinha',
+            'Lucas Lepri',
+            'Rubens Charles',
+            'Gilbert Burns',
+            'Rodolfo Vieira',
+            'Marcus Buchecha',
+            'Joao Gabriel',
+            'Gabriel Arges',
+            'Tex Johnson',
+            'Andrew Tackett',
+            'Pedro Marinho',
+            'Giancarlo Bodoni',
+            'Dante Leon',
+            'Jozef Chen',
+            'Tommy Langaker',
+            'Roberto Jimenez',
+            'Erich Munis',
+            'Jonatha Alves',
+            'Fabricio Werdum',
+            'Erberth Santos',
+            'Gabriel Sousa',
+            'Isaac Doederlein',
+            'Ffion Davies',
+            'Mayssa Bastos',
+            'Bia Mesquita',
+            'Mackenzie Dern',
+            'Beatriz Mesquita',
+            'Ana Carolina Vieira',
+            'Nathiely Jesus',
+            'Gabi Garcia',
+            'Thamara Ferreira',
+            'Amanda Monteiro',
+            'Luiza Monteiro',
+            'Adam Wardzinski'
+        ];
         
         this.init();
     }
@@ -35,12 +93,32 @@ class BJJFoundation {
 
     async loadVideos() {
         try {
-            const response = await fetch('bjj_simple_processed.json');
-            if (!response.ok) {
-                throw new Error('Failed to load videos');
+            // Load technique videos
+            const techResponse = await fetch('bjj_simple_processed.json');
+            if (!techResponse.ok) {
+                throw new Error('Failed to load technique videos');
             }
-            this.videos = await response.json();
-            console.log(`Loaded ${this.videos.length} videos`);
+            this.videos = await techResponse.json();
+            console.log(`Loaded ${this.videos.length} technique videos`);
+
+            // Load fight videos
+            try {
+                const fightResponse = await fetch('fight_simple.json');
+                if (fightResponse.ok) {
+                    this.fightVideos = await fightResponse.json();
+                    // Mark fight videos with a type flag
+                    this.fightVideos.forEach(video => {
+                        video.isFight = true;
+                    });
+                    console.log(`Loaded ${this.fightVideos.length} fight videos`);
+                }
+            } catch (fightError) {
+                console.warn('Fight videos not available:', fightError);
+            }
+
+            // Combine both datasets
+            this.allVideos = [...this.videos, ...this.fightVideos];
+            console.log(`Total videos: ${this.allVideos.length}`);
         } catch (error) {
             console.error('Error loading videos:', error);
             throw error;
@@ -57,7 +135,8 @@ class BJJFoundation {
         const takedowns = new Set();
         const channels = new Set();
 
-        this.videos.forEach(video => {
+        // Process all videos (techniques + fights)
+        this.allVideos.forEach(video => {
             if (video.classification) {
                 // Guard types
                 if (video.classification.guard_type) {
@@ -153,6 +232,17 @@ class BJJFoundation {
             option.textContent = channel;
             channelFilter.appendChild(option);
         });
+
+        // Populate athlete filter with top athletes
+        const athleteFilter = document.getElementById('athlete-filter');
+        if (athleteFilter) {
+            this.TOP_ATHLETES.forEach(athlete => {
+                const option = document.createElement('option');
+                option.value = athlete.toLowerCase();
+                option.textContent = athlete;
+                athleteFilter.appendChild(option);
+            });
+        }
     }
 
     setupEventListeners() {
@@ -215,6 +305,15 @@ class BJJFoundation {
             this.applyFilters();
         });
 
+        // Athlete filter (for fight videos)
+        const athleteFilter = document.getElementById('athlete-filter');
+        if (athleteFilter) {
+            athleteFilter.addEventListener('change', (e) => {
+                this.filters.athlete = e.target.value;
+                this.applyFilters();
+            });
+        }
+
         // Reset button
         document.getElementById('reset-filters').addEventListener('click', () => {
             this.resetFilters();
@@ -222,7 +321,7 @@ class BJJFoundation {
     }
 
     applyFilters() {
-        this.filteredVideos = this.videos.filter(video => {
+        this.filteredVideos = this.allVideos.filter(video => {
             // Search filter
             if (this.searchQuery) {
                 const searchText = [
@@ -234,6 +333,22 @@ class BJJFoundation {
                 if (!searchText.includes(this.searchQuery)) {
                     return false;
                 }
+            }
+
+            // Athlete filter (only for fight videos)
+            if (this.filters.athlete) {
+                if (!video.athletes || !Array.isArray(video.athletes)) {
+                    return false;
+                }
+                const hasAthlete = video.athletes.some(athlete => 
+                    athlete.toLowerCase().includes(this.filters.athlete)
+                );
+                if (!hasAthlete) return false;
+            }
+
+            // For fight videos without classification, only apply athlete and search filters
+            if (!video.classification && video.isFight) {
+                return true;
             }
 
             if (!video.classification) return false;
@@ -366,7 +481,7 @@ class BJJFoundation {
         const languageFlag = this.getLanguageFlag(video.language);
 
         // Create tags HTML
-        const tagsHTML = this.createTagsHTML(video.classification);
+        const tagsHTML = this.createTagsHTML(video.classification, video);
 
         card.innerHTML = `
             <div class="video-thumbnail">
@@ -392,10 +507,15 @@ class BJJFoundation {
         return card;
     }
 
-    createTagsHTML(classification) {
-        if (!classification) return '';
-
+    createTagsHTML(classification, video) {
         const tags = [];
+
+        // Add Fight tag if video has athletes (indicating it's a fight)
+        if (video && video.athletes && video.athletes.length > 0) {
+            tags.push(`<span class="tag fight">🥊 Fight</span>`);
+        }
+
+        if (!classification) return tags.join('');
 
         // Add guard tags first (show up to first two guard types as tags)
         if (classification.guard_type && classification.guard_type.length > 0) {
@@ -516,7 +636,7 @@ class BJJFoundation {
 
     updateResultsCount() {
         const count = document.getElementById('results-count');
-        const total = this.videos.length;
+        const total = this.allVideos.length;
         const filtered = this.filteredVideos.length;
 
         if (filtered === total) {
@@ -542,7 +662,8 @@ class BJJFoundation {
             position: '',
             submission: '',
             takedown: '',
-            channel: ''
+            channel: '',
+            athlete: ''
         };
 
         // Reset search
@@ -560,6 +681,8 @@ class BJJFoundation {
         document.getElementById('takedown-filter').value = '';
         const channelSelect = document.getElementById('channel-filter');
         if (channelSelect) channelSelect.value = '';
+        const athleteSelect = document.getElementById('athlete-filter');
+        if (athleteSelect) athleteSelect.value = '';
 
         // Reapply filters (will show all)
         this.applyFilters();

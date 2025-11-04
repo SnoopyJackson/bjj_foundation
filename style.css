@@ -578,6 +578,13 @@ body {
     color: #fb923c;
 }
 
+.tag.fight {
+    background: rgba(239, 68, 68, 0.2);
+    border-color: #ef4444;
+    color: #f87171;
+    font-weight: 700;
+}
+
 .tag:hover {
     transform: translateY(-2px);
     box-shadow: 0 3px 10px rgba(74, 158, 255, 0.3);
