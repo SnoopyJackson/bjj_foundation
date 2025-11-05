@@ -20,6 +20,7 @@ class BJJFoundation {
             athlete: '' // Fight athlete filter
         };
         this.searchQuery = '';
+        this.searchDebounceTimer = null; // Debounce timer for search input
         
         // Top BJJ athletes for filtering
         this.TOP_ATHLETES = [
@@ -246,20 +247,26 @@ class BJJFoundation {
     }
 
     setupEventListeners() {
-        // Search input
+        // Search input with debouncing
         const searchInput = document.getElementById('search-input');
         const clearSearch = document.getElementById('clear-search');
 
         searchInput.addEventListener('input', (e) => {
             this.searchQuery = e.target.value.toLowerCase().trim();
             clearSearch.style.display = this.searchQuery ? 'flex' : 'none';
-            this.applyFilters();
+            
+            // Debounce search - wait 300ms after user stops typing
+            clearTimeout(this.searchDebounceTimer);
+            this.searchDebounceTimer = setTimeout(() => {
+                this.applyFilters();
+            }, 300);
         });
 
         clearSearch.addEventListener('click', () => {
             searchInput.value = '';
             this.searchQuery = '';
             clearSearch.style.display = 'none';
+            clearTimeout(this.searchDebounceTimer); // Clear any pending search
             this.applyFilters();
             searchInput.focus();
         });
