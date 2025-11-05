@@ -1,9 +1,10 @@
 // BJJ Foundation - Main Application
 class BJJFoundation {
     constructor() {
-        // Limit number of cards rendered by default for speed. When the user is
-        // actively searching, all matching cards will be rendered.
-        this.DEFAULT_MAX_CARDS = 1000
+        // Limit number of cards rendered by default for speed
+        // Detect mobile devices and reduce card limit significantly
+        this.isMobile = window.innerWidth <= 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        this.DEFAULT_MAX_CARDS = this.isMobile ? 50 : 200; // Mobile: 50 cards, Desktop: 200 cards
         this.videos = [];
         this.fightVideos = [];
         this.allVideos = []; // Combined array of technique and fight videos
@@ -474,23 +475,31 @@ class BJJFoundation {
 
         noResults.style.display = 'none';
 
-        // Decide how many cards to render: render all if the user is searching
-        // or if the total is small; otherwise limit for speed.
+        // Limit cards on mobile more aggressively, even when searching
         const isSearching = !!this.searchQuery;
-        const maxToRender = isSearching ? this.filteredVideos.length : Math.min(this.filteredVideos.length, this.DEFAULT_MAX_CARDS);
+        const maxToRender = this.isMobile 
+            ? Math.min(this.filteredVideos.length, this.DEFAULT_MAX_CARDS) // Mobile: always limit
+            : (isSearching ? Math.min(this.filteredVideos.length, 300) : Math.min(this.filteredVideos.length, this.DEFAULT_MAX_CARDS)); // Desktop: limit search to 300
 
+        // Use DocumentFragment for better performance (batch DOM insertions)
+        const fragment = document.createDocumentFragment();
+        
         for (let i = 0; i < maxToRender; i++) {
             const card = this.createVideoCard(this.filteredVideos[i]);
-            grid.appendChild(card);
+            fragment.appendChild(card);
         }
+        
+        // Single DOM insertion instead of multiple
+        grid.appendChild(fragment);
 
         // If we trimmed the results, show a small hint at the bottom
-        if (!isSearching && this.filteredVideos.length > this.DEFAULT_MAX_CARDS) {
+        if (this.filteredVideos.length > maxToRender) {
             const hint = document.createElement('div');
             hint.className = 'results-hint';
-            hint.textContent = `Showing ${this.DEFAULT_MAX_CARDS} of ${this.filteredVideos.length} matches — refine search or filters to see more`;
+            hint.textContent = `Showing ${maxToRender} of ${this.filteredVideos.length} matches — refine search or filters to see more`;
             hint.style.marginTop = '12px';
             hint.style.color = 'var(--text-secondary)';
+            hint.style.textAlign = 'center';
             grid.appendChild(hint);
         }
     }
@@ -514,6 +523,7 @@ class BJJFoundation {
         card.innerHTML = `
             <div class="video-thumbnail">
                 <img src="${thumbnailUrl}" alt="${this.escapeHtml(video.title)}" 
+                     loading="lazy"
                      onerror="this.src='https://via.placeholder.com/480x360?text=No+Thumbnail'">
                 ${languageFlag ? `<div class="language-flag">${languageFlag}</div>` : ''}
                 <div class="play-overlay"></div>
