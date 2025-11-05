@@ -200,6 +200,12 @@ file:///path/to/bjj_foundation/index.html
 - 🪱 Worm Guard
 - 🅺 K Guard
 
+### Classification Improvements ✅
+
+- Priority-based matching: the classifier now checks for longer/more specific keywords before shorter ones (for example "single leg x" will match before "single leg"), which reduces incorrect or ambiguous matches.
+- Multilingual support: many glossary entries include French variants (accented and unaccented) so French-language video titles are classified more reliably.
+- Tip: when adding new keywords to `BJJ_GLOSSARY`, prefer adding the most specific phrases first and include common spelling/diacritic variants.
+
 ### Other Categories
 - **Positions:** Mount, Back Control, Side Control, North South, Knee on Belly, Turtle
 - **Passes:** Guard Pass, Knee Slice, Toreando, Leg Drag, Over Under, Stack Pass
@@ -215,6 +221,15 @@ file:///path/to/bjj_foundation/index.html
 - Real-time search as you type
 - Searches across titles, descriptions, and tags
 - Clear button for quick reset
+
+### Performance & Mobile Optimizations ⚡
+
+- Debounced search input (300ms): reduces repeated filtering while typing, improves responsiveness on slower devices.
+- Mobile-specific rendering limits: mobile devices render far fewer cards by default (50) to avoid heavy DOM work and speed up initial results.
+- Batched DOM updates using DocumentFragment: reduces reflows by inserting many cards in a single operation.
+- Lazy-loading thumbnails: thumbnails use native `loading="lazy"` to defer image downloads until the user scrolls them into view.
+
+These changes significantly improve perceived performance on phones and tablets while keeping desktop behavior responsive.
 
 #### Filters 🎛️
 - **Guard Type:** Filter by specific guard variations
