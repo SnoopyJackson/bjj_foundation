@@ -335,22 +335,43 @@ class BJJFoundation {
                 }
             }
 
-            // Athlete filter (only for fight videos)
-            if (this.filters.athlete) {
-                if (!video.athletes || !Array.isArray(video.athletes)) {
+            // Check if any technique filters are active
+            const hasTechniqueFilters = this.filters.techniqueCategory || 
+                this.filters.guard || this.filters.pass || this.filters.sweep || 
+                this.filters.position || this.filters.submission || this.filters.takedown;
+            
+            // Check if athlete filter is active
+            const hasAthleteFilter = this.filters.athlete;
+
+            // For fight videos (have athletes field)
+            if (video.isFight) {
+                // If technique filters are set, hide all fight videos
+                if (hasTechniqueFilters) {
                     return false;
                 }
-                const hasAthlete = video.athletes.some(athlete => 
-                    athlete.toLowerCase().includes(this.filters.athlete)
-                );
-                if (!hasAthlete) return false;
-            }
-
-            // For fight videos without classification, only apply athlete and search filters
-            if (!video.classification && video.isFight) {
+                
+                // If athlete filter is set, must match
+                if (hasAthleteFilter) {
+                    if (!video.athletes || !Array.isArray(video.athletes)) {
+                        return false;
+                    }
+                    const hasAthlete = video.athletes.some(athlete => 
+                        athlete.toLowerCase().includes(this.filters.athlete)
+                    );
+                    return hasAthlete;
+                }
+                
+                // No filters active - show fight video
                 return true;
             }
 
+            // For technique videos (no athletes field)
+            // If athlete filter is set, hide all technique videos
+            if (hasAthleteFilter) {
+                return false;
+            }
+            
+            // Must have classification
             if (!video.classification) return false;
 
             // Technique Category filter (high-level)

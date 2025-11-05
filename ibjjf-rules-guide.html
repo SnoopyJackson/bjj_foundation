@@ -12,21 +12,25 @@
         <header>
             <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
                 <div>
-                    <h1>🥋 IBJJF Rules Guide</h1>
-                    <p class="subtitle">Master Brazilian Jiu-Jitsu Competition Rules</p>
+                    <h1 data-i18n="title">🥋 IBJJF Rules Guide</h1>
+                    <p class="subtitle" data-i18n="subtitle">Master Brazilian Jiu-Jitsu Competition Rules</p>
                 </div>
-                <div>
-                    <button id="backButton" class="btn-reset">Back</button>
+                <div style="display:flex; gap:8px; align-items:center;">
+                    <div class="language-toggle">
+                        <button id="langEn" class="lang-btn active" onclick="switchLanguage('en')">EN</button>
+                        <button id="langFr" class="lang-btn" onclick="switchLanguage('fr')">FR</button>
+                    </div>
+                    <button id="backButton" class="btn-reset" data-i18n="backButton">Back</button>
                 </div>
             </div>
         </header>
 
         <div class="nav-tabs">
-            <button class="tab-btn active" onclick="switchTab('points', this)">Scoring System</button>
-            <button class="tab-btn" onclick="switchTab('advantages', this)">Advantages</button>
-            <button class="tab-btn" onclick="switchTab('penalties', this)">Penalties</button>
-            <button class="tab-btn" onclick="switchTab('illegal', this)">Illegal Moves</button>
-            <button class="tab-btn" onclick="switchTab('quiz', this)">Quiz 🎯</button>
+            <button class="tab-btn active" onclick="switchTab('points', this)" data-i18n="tabScoring">Scoring System</button>
+            <button class="tab-btn" onclick="switchTab('advantages', this)" data-i18n="tabAdvantages">Advantages</button>
+            <button class="tab-btn" onclick="switchTab('penalties', this)" data-i18n="tabPenalties">Penalties</button>
+            <button class="tab-btn" onclick="switchTab('illegal', this)" data-i18n="tabIllegal">Illegal Moves</button>
+            <button class="tab-btn" onclick="switchTab('quiz', this)" data-i18n="tabQuiz">Quiz 🎯</button>
         </div>
 
         <!-- POINTS SECTION -->
@@ -35,152 +39,152 @@
                 
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-title">Takedown</div>
-                        <div class="points-badge">2 PTS</div>
+                        <div class="card-title" data-i18n="takedownTitle">Takedown</div>
+                        <div class="points-badge">2 <span data-i18n="points">PTS</span></div>
                     </div>
                     <div class="card-icon">🤼</div>
-                    <div class="card-description">
+                    <div class="card-description" data-i18n="takedownDesc">
                         Taking opponent from standing to the ground with you landing on top in a controlled position.
                     </div>
                     <div class="info-box requirements">
-                        <h4>✓ Requirements:</h4>
+                        <h4 data-i18n="requirements">✓ Requirements:</h4>
                         <ul>
-                            <li>Opponent's back must touch the mat</li>
-                            <li>You must establish top position</li>
-                            <li>Hold control for 3 seconds</li>
+                            <li data-i18n="takedownReq1">Opponent's back must touch the mat</li>
+                            <li data-i18n="takedownReq2">You must establish top position</li>
+                            <li data-i18n="takedownReq3">Hold control for 3 seconds</li>
                         </ul>
                     </div>
                     <div class="note-box">
-                        <strong>Note:</strong> If you throw but land on bottom, the thrower gets 2 points and top person gets 1 advantage.
+                        <strong data-i18n="note">Note:</strong> <span data-i18n="takedownNote">If you throw but land on bottom, the thrower gets 2 points and top person gets 1 advantage.</span>
                     </div>
                 </div>
 
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-title">Sweep</div>
-                        <div class="points-badge">2 PTS</div>
+                        <div class="card-title" data-i18n="sweepTitle">Sweep</div>
+                        <div class="points-badge">2 <span data-i18n="points">PTS</span></div>
                     </div>
                     <div class="card-icon">🔄</div>
-                    <div class="card-description">
+                    <div class="card-description" data-i18n="sweepDesc">
                         Reversing position from bottom guard to top, establishing control over opponent.
                     </div>
                     <div class="info-box requirements">
-                        <h4>✓ Requirements:</h4>
+                        <h4 data-i18n="requirements">✓ Requirements:</h4>
                         <ul>
-                            <li>Must start from guard position</li>
-                            <li>End on top with control</li>
-                            <li>Maintain position for 3 seconds</li>
+                            <li data-i18n="sweepReq1">Must start from guard position</li>
+                            <li data-i18n="sweepReq2">End on top with control</li>
+                            <li data-i18n="sweepReq3">Maintain position for 3 seconds</li>
                         </ul>
                     </div>
                     <div class="info-box exceptions">
-                        <h4>✗ No Points If:</h4>
+                        <h4 data-i18n="exceptions">✗ No Points If:</h4>
                         <ul>
-                            <li>Opponent stands up before 3 seconds</li>
-                            <li>No clear control established</li>
+                            <li data-i18n="sweepExc1">Opponent stands up before 3 seconds</li>
+                            <li data-i18n="sweepExc2">No clear control established</li>
                         </ul>
                     </div>
                 </div>
 
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-title">Knee on Belly</div>
-                        <div class="points-badge">2 PTS</div>
+                        <div class="card-title" data-i18n="kneeTitle">Knee on Belly</div>
+                        <div class="points-badge">2 <span data-i18n="points">PTS</span></div>
                     </div>
                     <div class="card-icon">🦵</div>
-                    <div class="card-description">
+                    <div class="card-description" data-i18n="kneeDesc">
                         Placing your knee on opponent's torso while maintaining balance with other foot on ground.
                     </div>
                     <div class="info-box requirements">
-                        <h4>✓ Requirements:</h4>
+                        <h4 data-i18n="requirements">✓ Requirements:</h4>
                         <ul>
-                            <li>One knee on torso/belly</li>
-                            <li>Other foot planted on ground</li>
-                            <li>Hold for 3 seconds</li>
+                            <li data-i18n="kneeReq1">One knee on torso/belly</li>
+                            <li data-i18n="kneeReq2">Other foot planted on ground</li>
+                            <li data-i18n="kneeReq3">Hold for 3 seconds</li>
                         </ul>
                     </div>
                     <div class="note-box">
-                        <strong>Note:</strong> If other knee is on ground = Advantage only. Switching sides does NOT give new points.
+                        <strong data-i18n="note">Note:</strong> <span data-i18n="kneeNote">If other knee is on ground = Advantage only. Switching sides does NOT give new points.</span>
                     </div>
                 </div>
 
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-title">Guard Pass</div>
-                        <div class="points-badge">3 PTS</div>
+                        <div class="card-title" data-i18n="passTitle">Guard Pass</div>
+                        <div class="points-badge">3 <span data-i18n="points">PTS</span></div>
                     </div>
                     <div class="card-icon">➡️</div>
-                    <div class="card-description">
+                    <div class="card-description" data-i18n="passDesc">
                         Moving past opponent's legs to establish side control or similar dominant position.
                     </div>
                     <div class="info-box requirements">
-                        <h4>✓ Requirements:</h4>
+                        <h4 data-i18n="requirements">✓ Requirements:</h4>
                         <ul>
-                            <li>Start between opponent's legs</li>
-                            <li>Reach side control, north-south, or mount</li>
-                            <li>Be perpendicular or parallel to opponent</li>
-                            <li>Hold 3 seconds with control</li>
+                            <li data-i18n="passReq1">Start between opponent's legs</li>
+                            <li data-i18n="passReq2">Reach side control, north-south, or mount</li>
+                            <li data-i18n="passReq3">Be perpendicular or parallel to opponent</li>
+                            <li data-i18n="passReq4">Hold 3 seconds with control</li>
                         </ul>
                     </div>
                     <div class="info-box exceptions">
-                        <h4>✗ Advantage Only If:</h4>
+                        <h4 data-i18n="advantageOnly">✗ Advantage Only If:</h4>
                         <ul>
-                            <li>Opponent gets to knees or stands</li>
-                            <li>Position not held 3 seconds</li>
+                            <li data-i18n="passExc1">Opponent gets to knees or stands</li>
+                            <li data-i18n="passExc2">Position not held 3 seconds</li>
                         </ul>
                     </div>
                 </div>
 
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-title">Mount</div>
-                        <div class="points-badge">4 PTS</div>
+                        <div class="card-title" data-i18n="mountTitle">Mount</div>
+                        <div class="points-badge">4 <span data-i18n="points">PTS</span></div>
                     </div>
                     <div class="card-icon">⬆️</div>
-                    <div class="card-description">
+                    <div class="card-description" data-i18n="mountDesc">
                         Sitting on opponent's torso with weight distributed - one of the most dominant positions.
                     </div>
                     <div class="info-box requirements">
-                        <h4>✓ Requirements:</h4>
+                        <h4 data-i18n="requirements">✓ Requirements:</h4>
                         <ul>
-                            <li>Sitting on opponent's torso</li>
-                            <li>Can mount one arm, NEVER both</li>
-                            <li>Legs/feet must NOT be on opponent's legs</li>
-                            <li>Hold for 3 seconds</li>
+                            <li data-i18n="mountReq1">Sitting on opponent's torso</li>
+                            <li data-i18n="mountReq2">Can mount one arm, NEVER both</li>
+                            <li data-i18n="mountReq3">Legs/feet must NOT be on opponent's legs</li>
+                            <li data-i18n="mountReq4">Hold for 3 seconds</li>
                         </ul>
                     </div>
                     <div class="info-box exceptions">
-                        <h4>✗ Advantage Only If:</h4>
+                        <h4 data-i18n="advantageOnly">✗ Advantage Only If:</h4>
                         <ul>
-                            <li>Both opponent's arms trapped under you</li>
-                            <li>Mounted triangle position</li>
+                            <li data-i18n="mountExc1">Both opponent's arms trapped under you</li>
+                            <li data-i18n="mountExc2">Mounted triangle position</li>
                         </ul>
                     </div>
                 </div>
 
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-title">Back Control</div>
-                        <div class="points-badge">4 PTS</div>
+                        <div class="card-title" data-i18n="backTitle">Back Control</div>
+                        <div class="points-badge">4 <span data-i18n="points">PTS</span></div>
                     </div>
                     <div class="card-icon">🎯</div>
-                    <div class="card-description">
+                    <div class="card-description" data-i18n="backDesc">
                         Taking opponent's back with hooks - the most dominant position for submissions.
                     </div>
                     <div class="info-box requirements">
-                        <h4>✓ Requirements:</h4>
+                        <h4 data-i18n="requirements">✓ Requirements:</h4>
                         <ul>
-                            <li>Both hooks inside opponent's thighs</li>
-                            <li>Heels on inner thighs</li>
-                            <li>Control of upper body</li>
-                            <li>Hold for 3 seconds</li>
+                            <li data-i18n="backReq1">Both hooks inside opponent's thighs</li>
+                            <li data-i18n="backReq2">Heels on inner thighs</li>
+                            <li data-i18n="backReq3">Control of upper body</li>
+                            <li data-i18n="backReq4">Hold for 3 seconds</li>
                         </ul>
                     </div>
                     <div class="info-box exceptions">
-                        <h4>✗ Advantage Only If:</h4>
+                        <h4 data-i18n="advantageOnly">✗ Advantage Only If:</h4>
                         <ul>
-                            <li>Body triangle instead of hooks</li>
-                            <li>Crossed feet without hooks</li>
-                            <li>Both opponent's arms trapped</li>
+                            <li data-i18n="backExc1">Body triangle instead of hooks</li>
+                            <li data-i18n="backExc2">Crossed feet without hooks</li>
+                            <li data-i18n="backExc3">Both opponent's arms trapped</li>
                         </ul>
                     </div>
                 </div>
@@ -194,83 +198,83 @@
                 
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-title">What Are Advantages?</div>
+                        <div class="card-title" data-i18n="advWhatTitle">What Are Advantages?</div>
                     </div>
                     <div class="card-icon">➕</div>
-                    <div class="card-description">
+                    <div class="card-description" data-i18n="advWhatDesc">
                         Advantages are awarded for nearly completing scoring positions or threatening submissions. They break ties when points are equal.
                     </div>
                     <div class="info-box requirements">
-                        <h4>Awarded For:</h4>
+                        <h4 data-i18n="awardedFor">Awarded For:</h4>
                         <ul>
-                            <li>Nearly completing a takedown</li>
-                            <li>Positions held less than 3 seconds</li>
-                            <li>Close submission attempts</li>
-                            <li>Almost passing guard</li>
-                            <li>Coming on top after both pull guard</li>
+                            <li data-i18n="advAwardedFor1">Nearly completing a takedown</li>
+                            <li data-i18n="advAwardedFor2">Positions held less than 3 seconds</li>
+                            <li data-i18n="advAwardedFor3">Close submission attempts</li>
+                            <li data-i18n="advAwardedFor4">Almost passing guard</li>
+                            <li data-i18n="advAwardedFor5">Coming on top after both pull guard</li>
                         </ul>
                     </div>
                 </div>
 
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-title">Incomplete Positions</div>
+                        <div class="card-title" data-i18n="advIncompleteTitle">Incomplete Positions</div>
                     </div>
                     <div class="card-icon">⏱️</div>
-                    <div class="card-description">
+                    <div class="card-description" data-i18n="advIncompleteDesc">
                         These situations earn advantages instead of full points due to incomplete control.
                     </div>
                     <div class="info-box requirements">
-                        <h4>Examples:</h4>
+                        <h4 data-i18n="examples">Examples:</h4>
                         <ul>
-                            <li>Mount with both arms trapped = Advantage</li>
-                            <li>Back control with body triangle = Advantage</li>
-                            <li>Knee on belly with other knee down = Advantage</li>
-                            <li>Guard pass but opponent stands = Advantage</li>
+                            <li data-i18n="advExample1">Mount with both arms trapped = Advantage</li>
+                            <li data-i18n="advExample2">Back control with body triangle = Advantage</li>
+                            <li data-i18n="advExample3">Knee on belly with other knee down = Advantage</li>
+                            <li data-i18n="advExample4">Guard pass but opponent stands = Advantage</li>
                         </ul>
                     </div>
                 </div>
 
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-title">Submission Attempts</div>
+                        <div class="card-title" data-i18n="advSubmissionTitle">Submission Attempts</div>
                     </div>
                     <div class="card-icon">🔒</div>
-                    <div class="card-description">
+                    <div class="card-description" data-i18n="advSubmissionDesc">
                         Close submission attempts that put opponent in danger can earn advantages at referee's discretion.
                     </div>
                     <div class="info-box requirements">
-                        <h4>Referee Considers:</h4>
+                        <h4 data-i18n="advConsiders">Referee Considers:</h4>
                         <ul>
-                            <li>Proximity to finishing</li>
-                            <li>Amount of danger</li>
-                            <li>Quality of technique</li>
-                            <li>Opponent's defensive reaction</li>
+                            <li data-i18n="advConsider1">Proximity to finishing</li>
+                            <li data-i18n="advConsider2">Amount of danger</li>
+                            <li data-i18n="advConsider3">Quality of technique</li>
+                            <li data-i18n="advConsider4">Opponent's defensive reaction</li>
                         </ul>
                     </div>
-                    <div class="note-box">
+                    <div class="note-box" data-i18n="advSubNote">
                         Advantages for submissions are entirely at referee's discretion.
                     </div>
                 </div>
 
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-title">Tie-Breaking Order</div>
+                        <div class="card-title" data-i18n="advTieTitle">Tie-Breaking Order</div>
                     </div>
                     <div class="card-icon">⚖️</div>
-                    <div class="card-description">
+                    <div class="card-description" data-i18n="advTieDesc">
                         When scores are tied, this order determines the winner.
                     </div>
                     <div class="info-box requirements">
-                        <h4>Priority:</h4>
+                        <h4 data-i18n="advPriority">Priority:</h4>
                         <ul>
-                            <li><strong>1. Points</strong> (highest priority)</li>
-                            <li><strong>2. Advantages</strong> (second)</li>
-                            <li><strong>3. Penalties</strong> (fewer is better)</li>
-                            <li><strong>4. Referee Decision</strong> (final)</li>
+                            <li><strong data-i18n="advPriority1">1. Points</strong> <span data-i18n="advPriority1Sub">(highest priority)</span></li>
+                            <li><strong data-i18n="advPriority2">2. Advantages</strong> <span data-i18n="advPriority2Sub">(second)</span></li>
+                            <li><strong data-i18n="advPriority3">3. Penalties</strong> <span data-i18n="advPriority3Sub">(fewer is better)</span></li>
+                            <li><strong data-i18n="advPriority4">4. Referee Decision</strong> <span data-i18n="advPriority4Sub">(final)</span></li>
                         </ul>
                     </div>
-                    <div class="note-box">
+                    <div class="note-box" data-i18n="advTieNote">
                         There are NEVER draws in IBJJF - a winner is always declared.
                     </div>
                 </div>
@@ -284,104 +288,104 @@
                 
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-title">Penalty System</div>
+                        <div class="card-title" data-i18n="penSystemTitle">Penalty System</div>
                     </div>
                     <div class="card-icon">⚠️</div>
-                    <div class="card-description">
+                    <div class="card-description" data-i18n="penSystemDesc">
                         IBJJF uses penalties for rule violations, stalling, and dangerous actions.
                     </div>
                     <div class="info-box requirements">
-                        <h4>Penalty Progression:</h4>
+                        <h4 data-i18n="penProgression">Penalty Progression:</h4>
                         <ul>
-                            <li><strong>1st & 2nd:</strong> Warning</li>
-                            <li><strong>After 2nd:</strong> Opponent gets 1 Advantage</li>
-                            <li><strong>3rd Penalty:</strong> Opponent gets 2 Points</li>
-                            <li><strong>4th Penalty:</strong> Disqualification</li>
+                            <li><strong data-i18n="penProg1">1st & 2nd:</strong> <span data-i18n="penProg1Detail">Warning</span></li>
+                            <li><strong data-i18n="penProg2">After 2nd:</strong> <span data-i18n="penProg2Detail">Opponent gets 1 Advantage</span></li>
+                            <li><strong data-i18n="penProg3">3rd Penalty:</strong> <span data-i18n="penProg3Detail">Opponent gets 2 Points</span></li>
+                            <li><strong data-i18n="penProg4">4th Penalty:</strong> <span data-i18n="penProg4Detail">Disqualification</span></li>
                         </ul>
                     </div>
                 </div>
 
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-title">Stalling</div>
+                        <div class="card-title" data-i18n="penStallingTitle">Stalling</div>
                     </div>
                     <div class="card-icon">😴</div>
-                    <div class="card-description">
+                    <div class="card-description" data-i18n="penStallingDesc">
                         Not engaging with opponent or avoiding action - the most common penalty.
                     </div>
                     <div class="info-box exceptions">
-                        <h4>Examples:</h4>
+                        <h4 data-i18n="examples">Examples:</h4>
                         <ul>
-                            <li>Holding position 20+ seconds without progress</li>
-                            <li>Running from sweeps or submissions</li>
-                            <li>Not attempting to pass, sweep, or submit</li>
-                            <li>Pulling guard then standing immediately</li>
-                            <li>Leaving area to avoid techniques</li>
+                            <li data-i18n="penStallEx1">Holding position 20+ seconds without progress</li>
+                            <li data-i18n="penStallEx2">Running from sweeps or submissions</li>
+                            <li data-i18n="penStallEx3">Not attempting to pass, sweep, or submit</li>
+                            <li data-i18n="penStallEx4">Pulling guard then standing immediately</li>
+                            <li data-i18n="penStallEx5">Leaving area to avoid techniques</li>
                         </ul>
                     </div>
-                    <div class="note-box">
+                    <div class="note-box" data-i18n="penStallNote">
                         Referee says "LUTE" (fight) and gives 20 seconds. No progress = penalty.
                     </div>
                 </div>
 
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-title">Technical Fouls</div>
+                        <div class="card-title" data-i18n="penTechTitle">Technical Fouls</div>
                     </div>
                     <div class="card-icon">📋</div>
-                    <div class="card-description">
+                    <div class="card-description" data-i18n="penTechDesc">
                         Minor rule violations that accumulate toward disqualification.
                     </div>
                     <div class="info-box exceptions">
-                        <h4>Common Fouls:</h4>
+                        <h4 data-i18n="penCommonFouls">Common Fouls:</h4>
                         <ul>
-                            <li>Gripping inside gi sleeves/pants</li>
-                            <li>Holding opponent's belt</li>
-                            <li>Talking during match</li>
-                            <li>Not following referee instructions</li>
-                            <li>Repeatedly leaving the mat</li>
+                            <li data-i18n="penFoul1">Gripping inside gi sleeves/pants</li>
+                            <li data-i18n="penFoul2">Holding opponent's belt</li>
+                            <li data-i18n="penFoul3">Talking during match</li>
+                            <li data-i18n="penFoul4">Not following referee instructions</li>
+                            <li data-i18n="penFoul5">Repeatedly leaving the mat</li>
                         </ul>
                     </div>
                 </div>
 
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-title">Severe Penalties</div>
+                        <div class="card-title" data-i18n="penSevereTitle">Severe Penalties</div>
                     </div>
                     <div class="card-icon">🚫</div>
-                    <div class="card-description">
+                    <div class="card-description" data-i18n="penSevereDesc">
                         Immediate disqualification - no warnings given for these violations.
                     </div>
                     <div class="info-box exceptions">
-                        <h4>Immediate DQ:</h4>
+                        <h4 data-i18n="penImmediateDQ">Immediate DQ:</h4>
                         <ul>
-                            <li>Slamming opponent</li>
-                            <li>Striking in any way</li>
-                            <li>Biting or hair pulling</li>
-                            <li>Illegal submissions for belt level</li>
-                            <li>Disrespecting referee or opponent</li>
-                            <li>Unsportsmanlike conduct</li>
+                            <li data-i18n="penDQ1">Slamming opponent</li>
+                            <li data-i18n="penDQ2">Striking in any way</li>
+                            <li data-i18n="penDQ3">Biting or hair pulling</li>
+                            <li data-i18n="penDQ4">Illegal submissions for belt level</li>
+                            <li data-i18n="penDQ5">Disrespecting referee or opponent</li>
+                            <li data-i18n="penDQ6">Unsportsmanlike conduct</li>
                         </ul>
                     </div>
                 </div>
 
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-title">Fleeing The Mat</div>
+                        <div class="card-title" data-i18n="penFleeTitle">Fleeing The Mat</div>
                     </div>
                     <div class="card-icon">🏃</div>
-                    <div class="card-description">
+                    <div class="card-description" data-i18n="penFleeDesc">
                         Deliberately leaving competition area to avoid techniques.
                     </div>
                     <div class="info-box exceptions">
-                        <h4>Penalty:</h4>
+                        <h4 data-i18n="penPenalty">Penalty:</h4>
                         <ul>
-                            <li><strong>2 Points to Opponent</strong></li>
-                            <li>Match restarted standing</li>
-                            <li>Next offense = Disqualification</li>
+                            <li><strong data-i18n="penFlee1">2 Points to Opponent</strong></li>
+                            <li data-i18n="penFlee2">Match restarted standing</li>
+                            <li data-i18n="penFlee3">Next offense = Disqualification</li>
                         </ul>
                     </div>
-                    <div class="note-box">
+                    <div class="note-box" data-i18n="penFleeNote">
                         One of the few ways to lose 2 points immediately!
                     </div>
                 </div>
@@ -395,136 +399,136 @@
                 
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-title">Belt-Specific Rules</div>
+                        <div class="card-title" data-i18n="illBeltTitle">Belt-Specific Rules</div>
                     </div>
                     <div class="card-icon">🥋</div>
-                    <div class="card-description">
+                    <div class="card-description" data-i18n="illBeltDesc">
                         Many techniques are illegal at lower belts but become legal as you progress. Always verify your belt level restrictions!
                     </div>
-                    <div class="note-box">
+                    <div class="note-box" data-i18n="illBeltNote">
                         Check the official IBJJF rulebook for detailed charts showing legality by belt color and age division.
                     </div>
                 </div>
 
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-title">Slamming</div>
+                        <div class="card-title" data-i18n="illSlamTitle">Slamming</div>
                     </div>
                     <div class="card-icon">💥</div>
                     <div class="card-description">
-                        <strong>ILLEGAL AT ALL LEVELS</strong> - Violently throwing opponent to escape or while lifting.
+                        <strong data-i18n="illSlamDesc">ILLEGAL AT ALL LEVELS</strong> <span data-i18n="illSlamDesc2">- Violently throwing opponent to escape or while lifting.</span>
                     </div>
                     <div class="info-box exceptions">
-                        <h4>✗ Examples:</h4>
+                        <h4 data-i18n="examples">✗ Examples:</h4>
                         <ul>
-                            <li>Slamming to escape triangle</li>
-                            <li>Slamming to escape armbar</li>
-                            <li>Powerbombing from any position</li>
-                            <li>Dropping opponent violently</li>
+                            <li data-i18n="illSlamEx1">Slamming to escape triangle</li>
+                            <li data-i18n="illSlamEx2">Slamming to escape armbar</li>
+                            <li data-i18n="illSlamEx3">Powerbombing from any position</li>
+                            <li data-i18n="illSlamEx4">Dropping opponent violently</li>
                         </ul>
                     </div>
                     <div class="note-box">
-                        <strong>Result:</strong> Immediate disqualification
+                        <strong data-i18n="illSlamResult">Result:</strong> <span data-i18n="illSlamResultText">Immediate disqualification</span>
                     </div>
                 </div>
 
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-title">Leg Reaping</div>
+                        <div class="card-title" data-i18n="illReapTitle">Leg Reaping</div>
                     </div>
                     <div class="card-icon">🦵</div>
-                    <div class="card-description">
+                    <div class="card-description" data-i18n="illReapDesc">
                         When your outside leg crosses opponent's midline during leg entanglements.
                     </div>
                     <div class="info-box exceptions">
-                        <h4>Status by Belt:</h4>
+                        <h4 data-i18n="illStatusBelt">Status by Belt:</h4>
                         <ul>
-                            <li><strong>White/Blue/Purple:</strong> ILLEGAL</li>
-                            <li><strong>Brown/Black:</strong> Legal in some contexts</li>
+                            <li><strong data-i18n="illReap1">White/Blue/Purple:</strong> <span data-i18n="illReap1Detail">ILLEGAL</span></li>
+                            <li><strong data-i18n="illReap2">Brown/Black:</strong> <span data-i18n="illReap2Detail">Legal in some contexts</span></li>
                         </ul>
                     </div>
-                    <div class="note-box">
+                    <div class="note-box" data-i18n="illReapNote">
                         Puts dangerous pressure on knee. Be careful in leg entanglements!
                     </div>
                 </div>
 
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-title">Neck Cranks</div>
+                        <div class="card-title" data-i18n="illNeckTitle">Neck Cranks</div>
                     </div>
                     <div class="card-icon">🚫</div>
-                    <div class="card-description">
+                    <div class="card-description" data-i18n="illNeckDesc">
                         Submissions attacking the neck/spine rather than blood choke. Highly restricted.
                     </div>
                     <div class="info-box exceptions">
-                        <h4>✗ Illegal:</h4>
+                        <h4 data-i18n="illIllegal">✗ Illegal:</h4>
                         <ul>
-                            <li>Full nelson (all belts)</li>
-                            <li>Crucifix neck crank</li>
-                            <li>Twisting neck submissions</li>
-                            <li>Spinal locks ("can opener")</li>
+                            <li data-i18n="illNeck1">Full nelson (all belts)</li>
+                            <li data-i18n="illNeck2">Crucifix neck crank</li>
+                            <li data-i18n="illNeck3">Twisting neck submissions</li>
+                            <li data-i18n="illNeck4">Spinal locks ("can opener")</li>
                         </ul>
                     </div>
                 </div>
 
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-title">Leg Attacks</div>
+                        <div class="card-title" data-i18n="illLegTitle">Leg Attacks</div>
                     </div>
                     <div class="card-icon">🦵</div>
-                    <div class="card-description">
+                    <div class="card-description" data-i18n="illLegDesc">
                         Legality depends on belt level and age division.
                     </div>
                     <div class="info-box requirements">
-                        <h4>General Rules:</h4>
+                        <h4 data-i18n="illGeneralRules">General Rules:</h4>
                         <ul>
-                            <li><strong>Heel Hooks:</strong> Brown/Black only</li>
-                            <li><strong>Knee Bars:</strong> Purple and above</li>
-                            <li><strong>Toe Holds:</strong> Purple and above</li>
-                            <li><strong>Calf Slicers:</strong> Brown/Black only</li>
-                            <li><strong>Straight Ankle Locks:</strong> Most belts</li>
+                            <li><strong data-i18n="illLeg1">Heel Hooks:</strong> <span data-i18n="illLeg1Detail">Brown/Black only</span></li>
+                            <li><strong data-i18n="illLeg2">Knee Bars:</strong> <span data-i18n="illLeg2Detail">Purple and above</span></li>
+                            <li><strong data-i18n="illLeg3">Toe Holds:</strong> <span data-i18n="illLeg3Detail">Purple and above</span></li>
+                            <li><strong data-i18n="illLeg4">Calf Slicers:</strong> <span data-i18n="illLeg4Detail">Brown/Black only</span></li>
+                            <li><strong data-i18n="illLeg5">Straight Ankle Locks:</strong> <span data-i18n="illLeg5Detail">Most belts</span></li>
                         </ul>
                     </div>
                 </div>
 
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-title">Striking & Violence</div>
+                        <div class="card-title" data-i18n="illStrikeTitle">Striking & Violence</div>
                     </div>
                     <div class="card-icon">👊</div>
                     <div class="card-description">
-                        <strong>ALWAYS ILLEGAL</strong> - BJJ is a grappling art only.
+                        <strong data-i18n="illStrikeDesc">ALWAYS ILLEGAL</strong> <span data-i18n="illStrikeDesc2">- BJJ is a grappling art only.</span>
                     </div>
                     <div class="info-box exceptions">
-                        <h4>✗ Immediate DQ:</h4>
+                        <h4 data-i18n="penImmediateDQ">✗ Immediate DQ:</h4>
                         <ul>
-                            <li>Punching or slapping</li>
-                            <li>Kicking</li>
-                            <li>Headbutting</li>
-                            <li>Biting</li>
-                            <li>Eye gouging</li>
-                            <li>Hair pulling</li>
+                            <li data-i18n="illStrike1">Punching or slapping</li>
+                            <li data-i18n="illStrike2">Kicking</li>
+                            <li data-i18n="illStrike3">Headbutting</li>
+                            <li data-i18n="illStrike4">Biting</li>
+                            <li data-i18n="illStrike5">Eye gouging</li>
+                            <li data-i18n="illStrike6">Hair pulling</li>
                         </ul>
                     </div>
                 </div>
 
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-title">Small Joint Manipulation</div>
+                        <div class="card-title" data-i18n="illJointTitle">Small Joint Manipulation</div>
                     </div>
                     <div class="card-icon">🖐️</div>
-                    <div class="card-description">
+                    <div class="card-description" data-i18n="illJointDesc">
                         Grabbing and manipulating individual fingers or toes is illegal.
                     </div>
                     <div class="info-box exceptions">
-                        <h4>✗ Never Allowed:</h4>
+                        <h4 data-i18n="illNeverAllowed">✗ Never Allowed:</h4>
                         <ul>
-                            <li>Bending individual fingers</li>
-                            <li>Twisting individual toes</li>
-                            <li>Small joint locks</li>
+                            <li data-i18n="illJoint1">Bending individual fingers</li>
+                            <li data-i18n="illJoint2">Twisting individual toes</li>
+                            <li data-i18n="illJoint3">Small joint locks</li>
                         </ul>
                     </div>
-                    <div class="note-box">
+                    <div class="note-box" data-i18n="illJointNote">
                         Wrist locks are legal at purple belt and above.
                     </div>
                 </div>
@@ -536,8 +540,8 @@
         <div id="quiz" class="content-section">
             <div class="quiz-container">
                 <div class="quiz-header">
-                    <h2>🎯 Test Your Knowledge</h2>
-                    <div class="score-display" id="scoreDisplay">Score: 0/0</div>
+                    <h2 data-i18n="quizTitle">🎯 Test Your Knowledge</h2>
+                    <div class="score-display" id="scoreDisplay" data-i18n-prefix="quizScore">Score: 0/0</div>
                 </div>
                 
                 <div id="quizContent">
@@ -548,8 +552,8 @@
                     <div class="options-container" id="optionsContainer"></div>
                     
                     <div class="quiz-actions">
-                        <button class="quiz-btn" id="submitBtn" onclick="checkAnswer()">Submit Answer</button>
-                        <button class="quiz-btn" id="nextBtn" onclick="nextQuestion()" style="display: none;">Next Question</button>
+                        <button class="quiz-btn" id="submitBtn" onclick="checkAnswer()" data-i18n="quizSubmit">Submit Answer</button>
+                        <button class="quiz-btn" id="nextBtn" onclick="nextQuestion()" style="display: none;" data-i18n="quizNext">Next Question</button>
                     </div>
                 </div>
 
