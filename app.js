@@ -335,6 +335,12 @@ class BJJFoundation {
                 }
             }
 
+            // Channel filter (applies to both fight and technique videos)
+            if (this.filters.channel) {
+                const hasChannel = video.channel_name?.toLowerCase() === this.filters.channel;
+                if (!hasChannel) return false;
+            }
+
             // Check if any technique filters are active
             const hasTechniqueFilters = this.filters.techniqueCategory || 
                 this.filters.guard || this.filters.pass || this.filters.sweep || 
@@ -426,12 +432,6 @@ class BJJFoundation {
                     td => td.toLowerCase() === this.filters.takedown
                 );
                 if (!hasTakedown) return false;
-            }
-
-            // Channel filter
-            if (this.filters.channel) {
-                const hasChannel = video.channel_name?.toLowerCase() === this.filters.channel;
-                if (!hasChannel) return false;
             }
 
             return true;
