@@ -75,7 +75,17 @@ class BJJFoundation {
             'Thamara Ferreira',
             'Amanda Monteiro',
             'Luiza Monteiro',
-            'Adam Wardzinski'
+            'Adam Wardzinski',
+            'Nicky Rodriguez',
+            'Garry Tonon',
+            'Nicky Ryan',
+            'Tainan Dalpra',
+            'Keenan Cornelius',
+            'Rafa Lovato Jr.',
+            'JT Torres',
+            'Bruno Malfacine',
+            'Mackenzie Dern',
+            
         ];
         
         this.init();
