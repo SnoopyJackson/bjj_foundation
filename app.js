@@ -85,7 +85,15 @@ class BJJFoundation {
             'JT Torres',
             'Bruno Malfacine',
             'Mackenzie Dern',
-            
+            'Joao Miyao',
+            'Paulo Miyao',
+            'Diogo Reis',
+            'Melqui Galvao',
+            'Cole Abate',
+            'Ryan Hall',
+            'Geo Martinez',
+            'Eddie Cummings'
+                        
         ];
         
         this.init();
