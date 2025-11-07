@@ -107,6 +107,24 @@ body {
     animation: fadeInUp 1s ease 0.4s backwards;
 }
 
+/* Hero CTAs (static header area) */
+.hero-cta {
+    margin-top: 18px;
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.hero-cta .bmc-btn, .hero-cta .btn-reset {
+    padding: 10px 14px;
+    font-size: 0.95rem;
+}
+
+@media (max-width: 768px) {
+    /* Hide static hero CTAs on small screens to avoid duplication */
+    .hero-cta { display: none; }
+}
+
 @keyframes fadeInDown {
     from {
         opacity: 0;
@@ -369,6 +387,104 @@ body {
 
 .btn-reset:active {
     transform: translateY(0);
+}
+
+/* Unified CTA style for IBJJF & Buy Me a Coffee buttons */
+.cta-btn {
+    display: inline-block;
+    padding: 10px 14px;
+    background: linear-gradient(135deg, var(--accent-gold) 0%, #b8941f 100%);
+    color: var(--primary-dark);
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+    transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+}
+
+.cta-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+    opacity: 0.98;
+}
+
+.cta-btn:active {
+    transform: translateY(0);
+}
+
+/* Ensure .bmc-btn does not enforce a different visual; .cta-btn is the single source of truth for CTA visuals */
+.bmc-btn:not(.cta-btn) {
+    /* If bmc-btn is used without cta-btn, neutralize its default styles.
+       When combined with .cta-btn the CTA styling should apply. */
+    background: transparent !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    color: inherit !important;
+    text-decoration: none !important;
+}
+
+/* Buy Me a Coffee button */
+.bmc-btn {
+    display: inline-block;
+    padding: 8px 12px;
+    background: linear-gradient(135deg, #ffdd57 0%, #ffb84d 100%);
+    color: var(--primary-dark);
+    border-radius: 8px;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+    transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+    border: none;
+}
+
+.bmc-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+    opacity: 0.98;
+}
+
+.bmc-btn:active {
+    transform: translateY(0);
+}
+
+/* Small adjustments for header/footer placement */
+#bmc-header { font-size: 0.9rem; }
+#bmc-footer { font-size: 1rem; }
+
+/* Floating FAB for mobile */
+.bmc-fab {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    text-decoration: none;
+    color: var(--primary-dark);
+    background: linear-gradient(135deg, #ffdd57 0%, #ffb84d 100%);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    z-index: 2000;
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.bmc-fab:active { transform: scale(0.98); }
+
+/* Hide header/footer CTA on small screens to avoid duplication and reduce clutter */
+@media (max-width: 768px) {
+    #bmc-header, #bmc-footer { display: none !important; }
+    .bmc-fab { display: inline-flex; }
+}
+
+/* On larger screens, hide the FAB (we keep header/footer CTAs visible) */
+@media (min-width: 769px) {
+    .bmc-fab { display: none; }
 }
 
 .results-info {

@@ -20,6 +20,12 @@
                     <h1>BJJ FOUNDATION</h1>
                     <p class="tagline">The Encyclopedia Galactica of Brazilian Jiu-Jitsu</p>
                     <p class="hero-subtitle">Preserving techniques across the galaxy • 20000+ Videos</p>
+                    
+                    <!-- Static hero CTAs (visible before scroll) -->
+                    <div class="hero-cta">
+                        <a href="ibjjf-rules-guide.html" class="btn-reset cta-btn" id="ibjjf-static">IBJJF Rules Guide</a>
+                        <a href="https://buymeacoffee.com/jonathangax" class="bmc-btn cta-btn" id="bmc-static" target="_blank" rel="noopener noreferrer">🥣 Buy me an Acaï</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -30,8 +36,10 @@
         <div class="container">
             <div class="header-compact">
                 <span class="header-title">BJJ FOUNDATION</span>
-                <div style="margin-left:20px;">
-                    <a href="ibjjf-rules-guide.html" class="btn-reset" style="padding:8px 14px; font-size:0.9rem;">IBJJF Rules Guide</a>
+                <div style="margin-left:20px; display:flex; gap:10px; align-items:center;">
+                    <a href="ibjjf-rules-guide.html" class="btn-reset cta-btn">IBJJF Rules Guide</a>
+                    <!-- Buy Me a Coffee CTA -->
+                    <a href="https://www.buymeacoffee.com/yourname" id="bmc-header" class="bmc-btn cta-btn" target="_blank" rel="noopener noreferrer">☕ Buy me a coffee</a>
                 </div>
             </div>
         </div>
@@ -47,7 +55,7 @@
                     <button id="clear-search" class="clear-search" style="display: none;">✕</button>
                 </div>
             </div>
-        </div>git 
+        </div>
     </section>
 
     <!-- Filters Section -->
@@ -202,8 +210,14 @@
         <div class="container">
             <p>&copy; 2025 BJJ Foundation - Preserving the knowledge of techniques across the galaxy</p>
             <p class="quote">"Violence is the last refuge of the incompetent... but in BJJ, technique is the refuge of the knowledgeable."</p>
+            <div style="margin-top:12px;">
+                <a href="https://www.buymeacoffee.com/yourname" id="bmc-footer" class="bmc-btn cta-btn" target="_blank" rel="noopener noreferrer">☕ Buy me a coffee</a>
+            </div>
         </div>
     </footer>
+
+    <!-- Floating Buy Me a Coffee button for mobile -->
+    <a href="https://www.buymeacoffee.com/yourname" id="bmc-fab" class="bmc-fab" aria-label="Buy me a coffee" target="_blank" rel="noopener noreferrer">☕</a>
 
     <script src="app.js"></script>
 </body>
