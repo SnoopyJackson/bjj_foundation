@@ -417,24 +417,28 @@ body {
 
 /* Ensure .bmc-btn does not enforce a different visual; .cta-btn is the single source of truth for CTA visuals */
 .bmc-btn:not(.cta-btn) {
-    /* If bmc-btn is used without cta-btn, neutralize its default styles.
-       When combined with .cta-btn the CTA styling should apply. */
-    background: transparent !important;
-    box-shadow: none !important;
-    padding: 0 !important;
-    color: inherit !important;
-    text-decoration: none !important;
+    /* If .bmc-btn is used without .cta-btn, avoid forcing a conflicting style.
+       Prefer adding the .cta-btn class for unified visuals. This rule is
+       intentionally non-!important so later CTA styles can apply. */
+    background: transparent;
+    box-shadow: none;
+    padding: 0;
+    color: inherit;
+    text-decoration: none;
 }
 
-/* Buy Me a Coffee button */
+/* Buy Me a Coffee button - visually unified with .cta-btn */
 .bmc-btn {
     display: inline-block;
-    padding: 8px 12px;
-    background: linear-gradient(135deg, #ffdd57 0%, #ffb84d 100%);
+    padding: 10px 14px;
+    background: linear-gradient(135deg, var(--accent-gold) 0%, #b8941f 100%);
     color: var(--primary-dark);
     border-radius: 8px;
     font-weight: 700;
+    font-size: 0.95rem;
     text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
     box-shadow: 0 6px 18px rgba(0,0,0,0.2);
     transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
     border: none;
