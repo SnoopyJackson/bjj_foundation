@@ -76,7 +76,7 @@ class BJJFoundation {
             'Amanda Monteiro',
             'Luiza Monteiro',
             'Adam Wardzinski',
-            'Nicky Rodriguez',
+            'Nicky Rod',
             'Garry Tonon',
             'Nicky Ryan',
             'Tainan Dalpra',
@@ -92,7 +92,11 @@ class BJJFoundation {
             'Cole Abate',
             'Ryan Hall',
             'Geo Martinez',
-            'Eddie Cummings'
+            'Eddie Cummings',
+            'Diego Pato', 
+            'Ethan Crelinsten', 
+            'Helena Crevar', 
+            'Sarah Galvão'
                         
         ];
         
