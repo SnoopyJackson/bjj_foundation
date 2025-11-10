@@ -150,120 +150,120 @@ class BJJFoundation {
     }
 
     populateFilters() {
-        // Collect all unique values from classifications
-        const guards = new Set();
-        const passes = new Set();
-        const sweeps = new Set();
-        const positions = new Set();
-        const submissions = new Set();
-        const takedowns = new Set();
-        const channels = new Set();
+        // Collect counts for each classification so we can rank options by popularity
+        const guardCounts = new Map();
+        const passCounts = new Map();
+        const sweepCounts = new Map();
+        const positionCounts = new Map();
+        const submissionCounts = new Map();
+        const takedownCounts = new Map();
+        const escapeCounts = new Map();
+        const channelCounts = new Map();
+
+        // Helper to increment map counts
+        const inc = (map, key) => {
+            if (!key) return;
+            const k = String(key).trim();
+            if (!k) return;
+            map.set(k, (map.get(k) || 0) + 1);
+        };
 
         // Process all videos (techniques + fights)
         this.allVideos.forEach(video => {
             if (video.classification) {
-                // Guard types
                 if (video.classification.guard_type) {
-                    video.classification.guard_type.forEach(guard => guards.add(guard));
+                    video.classification.guard_type.forEach(g => inc(guardCounts, g));
                 }
-                // Passes
                 if (video.classification.pass) {
-                    video.classification.pass.forEach(pass => passes.add(pass));
+                    video.classification.pass.forEach(p => inc(passCounts, p));
                 }
-                // Sweeps
                 if (video.classification.sweep) {
-                    video.classification.sweep.forEach(sweep => sweeps.add(sweep));
+                    video.classification.sweep.forEach(s => inc(sweepCounts, s));
                 }
-                // Positions
                 if (video.classification.position) {
-                    video.classification.position.forEach(pos => positions.add(pos));
+                    video.classification.position.forEach(pos => inc(positionCounts, pos));
                 }
-                // Submissions
                 if (video.classification.submission) {
-                    video.classification.submission.forEach(sub => submissions.add(sub));
+                    video.classification.submission.forEach(sub => inc(submissionCounts, sub));
                 }
-                // Takedowns
                 if (video.classification.takedown) {
-                    video.classification.takedown.forEach(td => takedowns.add(td));
+                    video.classification.takedown.forEach(td => inc(takedownCounts, td));
+                }
+                if (video.classification.escape) {
+                    video.classification.escape.forEach(es => inc(escapeCounts, es));
                 }
             }
 
-            // Channels
             if (video.channel_name) {
-                channels.add(video.channel_name);
+                inc(channelCounts, video.channel_name);
             }
         });
 
-        // Populate guard filter
-        const guardFilter = document.getElementById('guard-filter');
-        Array.from(guards).sort().forEach(guard => {
-            const option = document.createElement('option');
-            option.value = guard.toLowerCase();
-            option.textContent = guard;
-            guardFilter.appendChild(option);
-        });
+        // Utility to populate a select from a counts map, sorted by count desc
+        const populateFromCounts = (selectId, countsMap, showCount = true) => {
+            const sel = document.getElementById(selectId);
+            if (!sel) return;
+            // Remove existing options except the first (default) option
+            while (sel.options.length > 1) sel.remove(1);
 
-        // Populate pass filter
-        const passFilter = document.getElementById('pass-filter');
-        Array.from(passes).sort().forEach(pass => {
-            const option = document.createElement('option');
-            option.value = pass.toLowerCase();
-            option.textContent = pass;
-            passFilter.appendChild(option);
-        });
+            const entries = Array.from(countsMap.entries()).sort((a, b) => b[1] - a[1]);
+            entries.forEach(([name, cnt]) => {
+                const option = document.createElement('option');
+                option.value = name.toLowerCase();
+                option.textContent = showCount ? `${name} (${cnt})` : name;
+                sel.appendChild(option);
+            });
+        };
 
-        // Populate sweep filter
-        const sweepFilter = document.getElementById('sweep-filter');
-        Array.from(sweeps).sort().forEach(sweep => {
-            const option = document.createElement('option');
-            option.value = sweep.toLowerCase();
-            option.textContent = sweep;
-            sweepFilter.appendChild(option);
-        });
+        // Populate filters ranked by number of videos (most -> least)
+        populateFromCounts('guard-filter', guardCounts);
+        populateFromCounts('pass-filter', passCounts);
+        populateFromCounts('sweep-filter', sweepCounts);
+        populateFromCounts('position-filter', positionCounts);
+        populateFromCounts('submission-filter', submissionCounts);
+        populateFromCounts('takedown-filter', takedownCounts);
+        populateFromCounts('escape-filter', escapeCounts);
+        populateFromCounts('channel-filter', channelCounts, true);
 
-        // Populate position filter
-        const positionFilter = document.getElementById('position-filter');
-        Array.from(positions).sort().forEach(position => {
-            const option = document.createElement('option');
-            option.value = position.toLowerCase();
-            option.textContent = position;
-            positionFilter.appendChild(option);
-        });
-
-        // Populate submission filter
-        const submissionFilter = document.getElementById('submission-filter');
-        Array.from(submissions).sort().forEach(submission => {
-            const option = document.createElement('option');
-            option.value = submission.toLowerCase();
-            option.textContent = submission;
-            submissionFilter.appendChild(option);
-        });
-
-        // Populate takedown filter
-        const takedownFilter = document.getElementById('takedown-filter');
-        Array.from(takedowns).sort().forEach(takedown => {
-            const option = document.createElement('option');
-            option.value = takedown.toLowerCase();
-            option.textContent = takedown;
-            takedownFilter.appendChild(option);
-        });
-
-        // Populate channel filter
-        const channelFilter = document.getElementById('channel-filter');
-        Array.from(channels).sort().forEach(channel => {
-            const option = document.createElement('option');
-            option.value = channel.toLowerCase();
-            option.textContent = channel;
-            channelFilter.appendChild(option);
-        });
-
-        // Populate athlete filter with top athletes
+        // Populate athlete filter: only include TOP_ATHLETES but rank them by actual fight counts when possible
         const athleteFilter = document.getElementById('athlete-filter');
         if (athleteFilter) {
-            this.TOP_ATHLETES.forEach(athlete => {
+            // Build counts map from fight videos (this.fightVideos)
+            const athleteCounts = new Map();
+            const incAth = (name) => {
+                if (!name) return;
+                const n = String(name).trim();
+                if (!n) return;
+                athleteCounts.set(n, (athleteCounts.get(n) || 0) + 1);
+            };
+
+            if (Array.isArray(this.fightVideos) && this.fightVideos.length > 0) {
+                this.fightVideos.forEach(v => {
+                    if (!v.athletes) return;
+                    if (Array.isArray(v.athletes)) {
+                        v.athletes.forEach(a => incAth(a));
+                    } else if (typeof v.athletes === 'string') {
+                        incAth(v.athletes);
+                    }
+                });
+            }
+
+            // Remove existing options except the default
+            while (athleteFilter.options.length > 1) athleteFilter.remove(1);
+
+            // Build list of TOP_ATHLETES with their counts (0 if none)
+            const topWithCounts = this.TOP_ATHLETES.map(name => {
+                const cnt = athleteCounts.get(name) || 0;
+                return { name, cnt };
+            });
+
+            // Sort TOP_ATHLETES by count desc; if counts are equal, keep the original order
+            topWithCounts.sort((a, b) => b.cnt - a.cnt);
+
+            topWithCounts.forEach(({ name, cnt }) => {
                 const option = document.createElement('option');
-                option.value = athlete.toLowerCase();
-                option.textContent = athlete;
+                option.value = name.toLowerCase();
+                option.textContent = cnt > 0 ? `${name} (${cnt})` : name;
                 athleteFilter.appendChild(option);
             });
         }
@@ -329,6 +329,15 @@ class BJJFoundation {
             this.filters.takedown = e.target.value;
             this.applyFilters();
         });
+
+        // Escape filter
+        const escapeSelect = document.getElementById('escape-filter');
+        if (escapeSelect) {
+            escapeSelect.addEventListener('change', (e) => {
+                this.filters.escape = e.target.value;
+                this.applyFilters();
+            });
+        }
 
         document.getElementById('channel-filter').addEventListener('change', (e) => {
             this.filters.channel = e.target.value;
@@ -412,8 +421,16 @@ class BJJFoundation {
 
             // Technique Category filter (high-level)
             if (this.filters.techniqueCategory) {
-                const hasCategory = video.classification[this.filters.techniqueCategory]?.length > 0;
-                if (!hasCategory) return false;
+                // Special handling for "escape" - it's stored in "technique" array
+                if (this.filters.techniqueCategory === 'escape') {
+                    const hasEscape = video.classification.technique?.some(
+                        tech => tech.toLowerCase() === 'escape'
+                    );
+                    if (!hasEscape) return false;
+                } else {
+                    const hasCategory = video.classification[this.filters.techniqueCategory]?.length > 0;
+                    if (!hasCategory) return false;
+                }
             }
 
             // Guard filter
@@ -462,6 +479,14 @@ class BJJFoundation {
                     td => td.toLowerCase() === this.filters.takedown
                 );
                 if (!hasTakedown) return false;
+            }
+
+            // Escape filter (detailed)
+            if (this.filters.escape) {
+                const hasEscape = video.classification.escape?.some(
+                    es => es.toLowerCase() === this.filters.escape
+                );
+                if (!hasEscape) return false;
             }
 
             return true;
@@ -616,6 +641,13 @@ class BJJFoundation {
         if (classification.position && classification.position.length > 0) {
             classification.position.slice(0, 2).forEach(pos => {
                 tags.push(`<span class="tag position">📍 ${this.escapeHtml(pos)}</span>`);
+            });
+        }
+
+        // Add escape tags
+        if (classification.escape && classification.escape.length > 0) {
+            classification.escape.slice(0, 2).forEach(es => {
+                tags.push(`<span class="tag escape">🛟 ${this.escapeHtml(es)}</span>`);
             });
         }
 
