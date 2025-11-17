@@ -466,7 +466,7 @@ BJJ_GLOSSARY = {
         "collar drag", "collar-drag", "collar drag takedown"
     ],
     "arm_drag": [
-        "arm drag", "arm-drag", "arm drag takedown", "arm drag throw"
+        "arm drag", "arm-drag", "arm drag takedown", "arm drag throw", "arm drags"
     ],
     "suplex": [
         "suplex"
@@ -509,7 +509,7 @@ BJJ_GLOSSARY = {
 
     # --- Classic Closed Guard Sweeps ---
     "scissor_sweep": [
-        "scissor sweep", "scissor-sweep", "scissors sweep"
+        "scissor sweep", "scissor-sweep", "scissors sweep", "scissor sweeps",
         "balayage ciseau", "ciseau"
     ],
     "hip_bump": [
@@ -566,7 +566,7 @@ BJJ_GLOSSARY = {
 
     # --- Half Guard & Z Guard Sweeps ---
     "old_school_sweep": [
-        "old school sweep", "half guard sweep", "half-guard old school",
+        "old school sweep", "half guard sweep", "half-guard old school", "old school sweeps"
         "balayage old school", "balayage vieille école", "balayage vieille ecole"
     ],
     "plan_b_sweep": [
@@ -596,7 +596,7 @@ BJJ_GLOSSARY = {
         "balayage berimbolo", "renversement berimbolo"
     ],
     "tripod_sweep": [
-        "tripod sweep", "tripod-sweep",
+        "tripod sweep", "tripod-sweep", "tripod sweeps",
         "balayage trépied", "balayage trepied"
     ],
     "sickle_sweep": [
@@ -657,10 +657,10 @@ BJJ_GLOSSARY = {
         "kiss of the dragon", "kiss of dragon sweep"
     ],
     "matrix_sweep": [
-        "matrix sweep", "matrix inversion sweep", "matrix", "matrice"
+        "matrix sweep", "matrix inversion sweep", "matrix", "matrice", "matrices"
     ],
     "baby_bolo_sweep": [
-        "baby bolo", "baby bolo sweep"
+        "baby bolo", "baby bolo sweep", "babybolo"
     ],
     "helicopter_sweep": [
         "helicopter sweep", "aerial sweep"
@@ -711,22 +711,22 @@ BJJ_GLOSSARY = {
     # Submissions
    # --- Armlocks & Shoulder Locks ---
     ,"armbar": [
-        "armbar", "arm bar", "juji gatame", "straight armbar", "arm lock", "arm-lock", "armlock"
+        "armbar", "arm bar", "juji gatame", "straight armbar", "arm lock", "arm-lock", "armlock", "armbars"
     ],
     "kimura": [
-        "kimura"
+        "kimura", "kimuras"
     ],
     "americana": [
-        "americana", "key lock", "ude garami"
+        "americana", "key lock", "ude garami", "americanas"
     ],
     "omoplata": [
-        "omoplata", "shoulder lock from guard", "shoulder submission", "omoplate"
+        "omoplata", "shoulder lock from guard", "shoulder submission", "omoplate", "omoplatas"
     ],
     "straight_arm_lock": [
         "straight arm lock", "straight armlock", "arm crush"
     ],
     "mir_lock": [
-        "mir lock", "mirror lock"
+        "mir lock", "mirror lock", "mir armlock", "mir locks"
     ],
     "hammerlock": [
         "hammerlock", "chicken wing"
@@ -735,7 +735,7 @@ BJJ_GLOSSARY = {
         "wristlock", "wrist lock", "poignet", "wristlocks", "clé de poignet", "cle de poignet"
     ],
     "flying_armbar": [
-        "flying armbar", "flying-armbar", "jumping armbar"
+        "flying armbar", "flying-armbar", "jumping armbar", "jumping arm bar", "flying armbars"
     ],
     
     # --- Chokes (Blood & Air) ---
@@ -744,26 +744,26 @@ BJJ_GLOSSARY = {
     ],
     "scissor_choke": ["scissor choke", "scissor-choke", "kiri jime", "scissors choke"],
     "flying_triangle": [
-        "flying triangle", "flying-triangle", "jumping triangle"
+        "flying triangle", "flying-triangle", "jumping triangle", "flying triangles"
     ],
     "flying_guillotine": ["flying guillotine", "flying-guillotine", "jumping guillotine"],
     "triangle": [
-        "triangle choke", "triangle", "sankaku", "triangle submission"
+        "triangle choke", "triangle", "sankaku", "triangle submission", "triangles", "étranglement en triangle", "etranglement en triangle"
     ],
     "arm_triangle": [
-        "arm triangle", "kata gatame", "head and arm choke", "arm head choke", "bras tête", "bras tete"
+        "arm triangle", "kata gatame", "head and arm choke", "arm head choke", "bras tête", "bras tete", "arm triangles"
     ],
     "anaconda": [
-        "anaconda", "anaconda choke"
+        "anaconda", "anaconda choke", "anacondas"
     ],
     "darce": [
-        "darce", "d'arce", "darce choke"
+        "darce", "d'arce", "darce choke", "darces"
     ],
     "ezekiel": [
-        "ezekiel", "ezekiel choke", "sode guruma jime"
+        "ezekiel", "ezekiel choke", "sode guruma jime", "ezekiels"
     ],
     "guillotine": [
-        "guillotine", "guillotine choke", "front choke"
+        "guillotine", "guillotine choke", "front choke", "guillotines"
     ],
     "marcelotine": [
         "marcelotine", "high elbow guillotine", "marcelo guillotine"
@@ -771,13 +771,13 @@ BJJ_GLOSSARY = {
     "hindulotine": [
         "hindulotine", "hindu guillotine", "hindu choke"],
     "loop_choke": [
-        "loop choke", "loop-choke"
+        "loop choke", "loop-choke", "loop chokes"
     ],
     "baseball_choke": [
         "baseball choke", "baseball-choke", "baseball bat choke"
     ],
     "bow_and_arrow": [
-        "bow and arrow", "bow-and-arrow", "bow and arrow choke", "arc et flèche", "arc-et-flèche", "arc et fleche", "bow & arrow"
+        "bow and arrow", "bow-and-arrow", "bow and arrow choke", "arc et flèche", "arc-et-flèche", "arc et fleche", "bow & arrow", "bow & arrows"
     ],
     "cross_collar_choke": [
         "cross collar choke", "cross-collar choke", "x choke", "juji jime"
@@ -795,10 +795,10 @@ BJJ_GLOSSARY = {
         "peruvian necktie", "necktie choke"
     ],
     "gogoplata": [
-        "gogoplata", "gogo choke", "shin choke"
+        "gogoplata", "gogo choke", "shin choke", "gogoplatas"
     ],
     "lapel_choke": [
-        "lapel choke", "lapel submission", "lapel strangle"
+        "lapel choke", "lapel submission", "lapel strangle", "lapel chokes"
     ],
     "brabo_choke": [
         "brabo choke", "brabo", "darce variation"
@@ -807,23 +807,25 @@ BJJ_GLOSSARY = {
         "smother choke", "face choke", "air choke"
     ],
     "choi_bar": [
-        "choi bar", "choi-bar", "choi bar", "choibar"],
+        "choi bar", "choi-bar", "choi bar", "choibar", "choibars"
+    ],
     "mother_milk": [
-        "mother milk", "mother milk choke"],
+        "mother milk", "mother milk choke"
+    ],
 
     # --- Leg Locks ---
     "heel_hook": [
         "heel hook", "heel-hook", "inverted heel hook", "outside heel hook", "inside heel hook", "heelhook",
-        "clé de talon", "cle de talon"
+        "clé de talon", "cle de talon", "heel hooks"
     ],
     "toe_hold": [
-        "toe hold", "toe-hold", "fig-four toe hold"
+        "toe hold", "toe-hold", "fig-four toe hold", "toe holds"
     ],
     "kneebar": [
-        "kneebar", "knee bar", "hiza juji gatame", "knee lock", "knee-lock", "clé de genou", "cle de genou"
+        "kneebar", "knee bar", "hiza juji gatame", "knee lock", "knee-lock", "clé de genou", "cle de genou", "kneebars"
     ],
     "ankle_lock": [
-        "ankle lock", "ankle-lock", "achilles lock", "straight ankle", "ashi lock", "clé de cheville", "cle de cheville"
+        "ankle lock", "ankle-lock", "achilles lock", "straight ankle", "ashi lock", "clé de cheville", "cle de cheville", "ankle locks"
     ],
     "calf_slicer": [
         "calf slicer", "calf-slicer", "calf crusher", "knee slicer"
@@ -914,10 +916,10 @@ BJJ_GLOSSARY = {
         "counter", "countering"
     ],
     "grip": [
-        "grip", "gripping", "grip fighting"
+        "grip", "gripping", "grip fighting", "grips"
     ],
     "berimbolo": [
-        "berimbolo", "bolo"
+        "berimbolo", "bolo", "berimbolos"
     ],
     "leg_lock": [
         "leg lock", "leg-lock", "leg attack", "leg locks", "leg attacks", "leg submissions", "leg submission", "clé de jambe", "cle de jambe"
@@ -931,11 +933,11 @@ BJJ_GLOSSARY = {
     "neck_crank": [
         "neck crank", "neck-crank", "can opener"
     ],
-"estima_lock": ["estima loclk", "estima-lock"],
+"estima_lock": ["estima lock", "estima-lock"],
 "aoki_lock" : ["aoki lock"],
 "japanese_necktie" : ["japanese necktie"],
-"von_flue_choke" : ["vonflue choke", "von flue choke"],
-"electric_chair" : ["eletric chair"]
+"von_flue_choke" : ["vonflue choke", "von flue choke", "von flue", "vonflue"],
+"electric_chair" : ["electric chair"]
 }
 
 # Emoji mappings for guard types
