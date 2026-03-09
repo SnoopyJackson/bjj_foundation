@@ -21,7 +21,7 @@ BJJ_CHANNELS = ["@JonThomasBJJ",
     "@TarikBJJ"
     , "@JordanTeachesJiujitsu", "@DefensiveBJJ", "@LachlanGilesBJJ", "@KeenanCornelius", "@WrestlingUniversity", "@LIMIBJJ", "@jjbcanape", "@josephbreza-grappling9459", "@shintaronakano2842", "@FrenchGuianajiu-jitsuTV",
     "@InvisibleJiuJitsu", "@kurtosiander", "@Chewjitsu", "@BJJFanatics", "@BJJScout", "@LEONLARMAN", "@DubiousDom", "@Heather_MorganBJJ",
-    "@GracieBreakdown", "@BJJLibrary", "@BernardoFariaBJJ", "@MMALeech", "@ZombieProofBJJ", #
+    "@GracieBreakdown", "@BJJLibrary", "@BernardoFariaBJJ", "@MMALeech", "@ZombieProofBJJ", "jonathan_bjj", "@BJJHEAVY-t8h", "Phenix_technique",
     "@Wardziak", "@EnergiaMartialArts", "@vincenguyenbjj", "@Grapplers_Guide", "@atosjiujitsuhq", "@bzglick", "@Shigashi84",
     "@BTeamJiuJitsu", "@BJJGlobetrotters", "@JiuJitsuInMinutesbyJasonScully", "@SticksandStonesBJJ", "@EnergiaMartialArts"
     "@nathanorchard10p", "@ArnaudPiétéUnidade", "@YoshiJiuJitsuTech", "@zukaBJJ", "@yogaforbjj", "@darkhorsemartialarts","@roydean", "@1MinuteJiuJitsu","@samir.bensaid", "@ArtofJiuJitsu", "@mendesbros", "@Submissions101", "@DeepDiveJJ",
