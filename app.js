@@ -359,8 +359,11 @@ class BJJFoundation {
         });
     }
 
-    applyFilters() {
-        this.filteredVideos = this.allVideos.filter(video => {
+    // Core filtering logic - returns matching videos using current filters + optional overrides
+    _filterVideos(filterOverrides = {}) {
+        const f = { ...this.filters, ...filterOverrides };
+
+        return this.allVideos.filter(video => {
             // Search filter
             if (this.searchQuery) {
                 const searchText = [
@@ -375,18 +378,18 @@ class BJJFoundation {
             }
 
             // Channel filter (applies to both fight and technique videos)
-            if (this.filters.channel) {
-                const hasChannel = video.channel_name?.toLowerCase() === this.filters.channel;
+            if (f.channel) {
+                const hasChannel = video.channel_name?.toLowerCase() === f.channel;
                 if (!hasChannel) return false;
             }
 
             // Check if any technique filters are active
-            const hasTechniqueFilters = this.filters.techniqueCategory || 
-                this.filters.guard || this.filters.pass || this.filters.sweep || 
-                this.filters.position || this.filters.submission || this.filters.takedown;
+            const hasTechniqueFilters = f.techniqueCategory || 
+                f.guard || f.pass || f.sweep || 
+                f.position || f.submission || f.takedown;
             
             // Check if athlete filter is active
-            const hasAthleteFilter = this.filters.athlete;
+            const hasAthleteFilter = f.athlete;
 
             // For fight videos (have athletes field)
             if (video.isFight) {
@@ -401,7 +404,7 @@ class BJJFoundation {
                         return false;
                     }
                     const hasAthlete = video.athletes.some(athlete => 
-                        athlete.toLowerCase().includes(this.filters.athlete)
+                        athlete.toLowerCase().includes(f.athlete)
                     );
                     return hasAthlete;
                 }
@@ -420,77 +423,80 @@ class BJJFoundation {
             if (!video.classification) return false;
 
             // Technique Category filter (high-level)
-            if (this.filters.techniqueCategory) {
-                // Special handling for "escape" - it's stored in "technique" array
-                if (this.filters.techniqueCategory === 'escape') {
+            if (f.techniqueCategory) {
+                if (f.techniqueCategory === 'escape') {
                     const hasEscape = video.classification.technique?.some(
                         tech => tech.toLowerCase() === 'escape'
                     );
                     if (!hasEscape) return false;
                 } else {
-                    const hasCategory = video.classification[this.filters.techniqueCategory]?.length > 0;
+                    const hasCategory = video.classification[f.techniqueCategory]?.length > 0;
                     if (!hasCategory) return false;
                 }
             }
 
             // Guard filter
-            if (this.filters.guard) {
+            if (f.guard) {
                 const hasGuard = video.classification.guard_type?.some(
-                    guard => guard.toLowerCase() === this.filters.guard
+                    guard => guard.toLowerCase() === f.guard
                 );
                 if (!hasGuard) return false;
             }
 
             // Pass filter (detailed)
-            if (this.filters.pass) {
+            if (f.pass) {
                 const hasPass = video.classification.pass?.some(
-                    pass => pass.toLowerCase() === this.filters.pass
+                    pass => pass.toLowerCase() === f.pass
                 );
                 if (!hasPass) return false;
             }
 
             // Sweep filter (detailed)
-            if (this.filters.sweep) {
+            if (f.sweep) {
                 const hasSweep = video.classification.sweep?.some(
-                    sweep => sweep.toLowerCase() === this.filters.sweep
+                    sweep => sweep.toLowerCase() === f.sweep
                 );
                 if (!hasSweep) return false;
             }
 
             // Position filter
-            if (this.filters.position) {
+            if (f.position) {
                 const hasPosition = video.classification.position?.some(
-                    pos => pos.toLowerCase() === this.filters.position
+                    pos => pos.toLowerCase() === f.position
                 );
                 if (!hasPosition) return false;
             }
 
             // Submission filter (detailed)
-            if (this.filters.submission) {
+            if (f.submission) {
                 const hasSubmission = video.classification.submission?.some(
-                    sub => sub.toLowerCase() === this.filters.submission
+                    sub => sub.toLowerCase() === f.submission
                 );
                 if (!hasSubmission) return false;
             }
 
             // Takedown filter (detailed)
-            if (this.filters.takedown) {
+            if (f.takedown) {
                 const hasTakedown = video.classification.takedown?.some(
-                    td => td.toLowerCase() === this.filters.takedown
+                    td => td.toLowerCase() === f.takedown
                 );
                 if (!hasTakedown) return false;
             }
 
             // Escape filter (detailed)
-            if (this.filters.escape) {
+            if (f.escape) {
                 const hasEscape = video.classification.escape?.some(
-                    es => es.toLowerCase() === this.filters.escape
+                    es => es.toLowerCase() === f.escape
                 );
                 if (!hasEscape) return false;
             }
 
             return true;
         });
+    }
+
+    applyFilters() {
+        this.filteredVideos = this._filterVideos();
 
         // Sort by view count (highest to lowest)
         this.filteredVideos.sort((a, b) => {
@@ -499,8 +505,103 @@ class BJJFoundation {
             return viewsB - viewsA;
         });
 
+        // Cascade: update other filter dropdowns to show only available options
+        this.updateAvailableFilterOptions();
+
         this.renderVideos();
         this.updateResultsCount();
+    }
+
+    // Cascading filters: repopulate each dropdown based on videos matching all OTHER active filters
+    // Fight filters (athlete) are excluded from cascading
+    updateAvailableFilterOptions() {
+        // Technique classification dropdowns
+        const techniqueFilterConfigs = [
+            { key: 'guard', field: 'guard_type', selectId: 'guard-filter' },
+            { key: 'pass', field: 'pass', selectId: 'pass-filter' },
+            { key: 'sweep', field: 'sweep', selectId: 'sweep-filter' },
+            { key: 'position', field: 'position', selectId: 'position-filter' },
+            { key: 'submission', field: 'submission', selectId: 'submission-filter' },
+            { key: 'takedown', field: 'takedown', selectId: 'takedown-filter' },
+            { key: 'escape', field: 'escape', selectId: 'escape-filter' },
+        ];
+
+        techniqueFilterConfigs.forEach(({ key, field, selectId }) => {
+            const sel = document.getElementById(selectId);
+            if (!sel) return;
+
+            // Get videos matching all filters EXCEPT this one
+            const videos = this._filterVideos({ [key]: '' });
+            const counts = new Map();
+            videos.forEach(video => {
+                if (video.isFight || !video.classification) return;
+                const values = video.classification[field];
+                if (values) {
+                    values.forEach(v => {
+                        const k = String(v).trim();
+                        if (k) counts.set(k, (counts.get(k) || 0) + 1);
+                    });
+                }
+            });
+
+            this._repopulateSelect(sel, counts, this.filters[key]);
+        });
+
+        // Channel filter (applies to both fight and technique videos)
+        const channelSel = document.getElementById('channel-filter');
+        if (channelSel) {
+            const channelVideos = this._filterVideos({ channel: '' });
+            const channelCounts = new Map();
+            channelVideos.forEach(video => {
+                if (video.channel_name) {
+                    const k = String(video.channel_name).trim();
+                    if (k) channelCounts.set(k, (channelCounts.get(k) || 0) + 1);
+                }
+            });
+            this._repopulateSelect(channelSel, channelCounts, this.filters.channel);
+        }
+
+        // Technique category filter: disable categories with no matching videos
+        const techCatSel = document.getElementById('technique-category-filter');
+        if (techCatSel) {
+            const techCatVideos = this._filterVideos({ techniqueCategory: '' });
+            const availableCategories = new Set();
+            techCatVideos.forEach(video => {
+                if (video.isFight || !video.classification) return;
+                if (video.classification.pass?.length > 0) availableCategories.add('pass');
+                if (video.classification.sweep?.length > 0) availableCategories.add('sweep');
+                if (video.classification.submission?.length > 0) availableCategories.add('submission');
+                if (video.classification.takedown?.length > 0) availableCategories.add('takedown');
+                if (video.classification.technique?.some(t => t.toLowerCase() === 'escape')) availableCategories.add('escape');
+                if (video.classification.technique?.length > 0) availableCategories.add('technique');
+            });
+
+            Array.from(techCatSel.options).forEach(option => {
+                if (option.value === '') return; // "All Types" always available
+                option.disabled = !availableCategories.has(option.value);
+                option.style.opacity = option.disabled ? '0.4' : '1';
+            });
+        }
+    }
+
+    // Helper: repopulate a <select> from a counts map, preserving current selection
+    _repopulateSelect(sel, countsMap, currentValue) {
+        // Keep the first option (default "All ..." placeholder)
+        while (sel.options.length > 1) sel.remove(1);
+
+        Array.from(countsMap.entries())
+            .sort((a, b) => b[1] - a[1])
+            .forEach(([name, cnt]) => {
+                const option = document.createElement('option');
+                option.value = name.toLowerCase();
+                option.textContent = `${name} (${cnt})`;
+                sel.appendChild(option);
+            });
+
+        // Restore selected value
+        if (currentValue) {
+            sel.value = currentValue;
+        }
     }
 
     renderVideos() {
