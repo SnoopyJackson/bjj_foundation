@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BJJ Foundation - Icon Generator</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: #0a0e27; color: #e8e8e8; padding: 40px; }
+        h1 { color: #d4af37; margin-bottom: 10px; }
+        p.subtitle { color: #a8a8a8; margin-bottom: 30px; }
+        .grid { display: flex; flex-wrap: wrap; gap: 24px; margin-top: 20px; }
+        .icon-card {
+            background: #1e2540; border-radius: 12px; padding: 20px;
+            display: flex; flex-direction: column; align-items: center; gap: 12px;
+            border: 1px solid #2a3150;
+        }
+        .icon-card canvas { border-radius: 16px; background: #0a0e27; }
+        .icon-card .label { color: #d4af37; font-weight: 600; font-size: 14px; }
+        .icon-card .platform { color: #a8a8a8; font-size: 12px; }
+        .icon-card a {
+            background: #d4af37; color: #0a0e27; text-decoration: none;
+            padding: 8px 18px; border-radius: 6px; font-weight: 600; font-size: 13px;
+            cursor: pointer; transition: background 0.2s;
+        }
+        .icon-card a:hover { background: #f0d060; }
+        #generateBtn {
+            background: #d4af37; color: #0a0e27; border: none; padding: 14px 36px;
+            font-size: 16px; font-weight: 700; border-radius: 8px; cursor: pointer;
+            margin-bottom: 20px; transition: background 0.2s;
+        }
+        #generateBtn:hover { background: #f0d060; }
+        #downloadAllBtn {
+            background: #4a9eff; color: #fff; border: none; padding: 14px 36px;
+            font-size: 16px; font-weight: 700; border-radius: 8px; cursor: pointer;
+            margin-bottom: 20px; margin-left: 12px; transition: background 0.2s;
+        }
+        #downloadAllBtn:hover { background: #6ab4ff; }
+        .instructions { background: #1e2540; border-radius: 12px; padding: 24px; margin: 30px 0; border-left: 4px solid #d4af37; }
+        .instructions h2 { color: #d4af37; margin-bottom: 12px; }
+        .instructions ol { padding-left: 20px; }
+        .instructions li { margin-bottom: 8px; color: #a8a8a8; }
+        .instructions code { background: #0a0e27; padding: 2px 6px; border-radius: 4px; color: #4a9eff; }
+    </style>
+</head>
+<body>
+    <h1>BJJ Foundation - App Icon Generator</h1>
+    <p class="subtitle">Generate PNG icons for Android &amp; iOS from the master SVG</p>
+
+    <button id="generateBtn">Generate All Icons</button>
+    <button id="downloadAllBtn" style="display:none;">Download All Icons</button>
+
+    <div class="grid" id="iconGrid"></div>
+
+    <div class="instructions">
+        <h2>How to use these icons</h2>
+        <ol>
+            <li><strong>Click "Generate All Icons"</strong> to render PNGs from the SVG icon.</li>
+            <li><strong>Download each icon</strong> individually or click "Download All Icons".</li>
+            <li>Place PNG files in an <code>icons/</code> folder in your project root.</li>
+            <li><strong>Android (PWA):</strong> The <code>manifest.json</code> is already configured. Add to home screen from Chrome.</li>
+            <li><strong>iOS:</strong> The <code>apple-touch-icon</code> meta tags in <code>index.html</code> handle the home screen icon.</li>
+        </ol>
+    </div>
+
+    <div class="instructions">
+        <h2>Android Icon Sizes</h2>
+        <ol>
+            <li><strong>48x48</strong> — mdpi (baseline)</li>
+            <li><strong>72x72</strong> — hdpi</li>
+            <li><strong>96x96</strong> — xhdpi</li>
+            <li><strong>144x144</strong> — xxhdpi</li>
+            <li><strong>192x192</strong> — xxxhdpi / PWA required</li>
+            <li><strong>512x512</strong> — Google Play Store / PWA splash</li>
+        </ol>
+    </div>
+
+    <div class="instructions">
+        <h2>iOS Icon Sizes</h2>
+        <ol>
+            <li><strong>120x120</strong> — iPhone (2x, 3x)</li>
+            <li><strong>152x152</strong> — iPad</li>
+            <li><strong>167x167</strong> — iPad Pro</li>
+            <li><strong>180x180</strong> — iPhone (3x)</li>
+        </ol>
+    </div>
+
+    <script>
+        const sizes = [
+            { size: 512, platform: 'Android / Play Store' },
+            { size: 192, platform: 'Android / PWA' },
+            { size: 180, platform: 'iOS iPhone (3x)' },
+            { size: 167, platform: 'iOS iPad Pro' },
+            { size: 152, platform: 'iOS iPad' },
+            { size: 144, platform: 'Android xxhdpi' },
+            { size: 120, platform: 'iOS iPhone (2x)' },
+            { size: 96,  platform: 'Android xhdpi' },
+            { size: 72,  platform: 'Android hdpi' },
+            { size: 48,  platform: 'Android mdpi' }
+        ];
+
+        const grid = document.getElementById('iconGrid');
+        const generateBtn = document.getElementById('generateBtn');
+        const downloadAllBtn = document.getElementById('downloadAllBtn');
+
+        generateBtn.addEventListener('click', generateIcons);
+        downloadAllBtn.addEventListener('click', downloadAllIcons);
+
+        function generateIcons() {
+            grid.innerHTML = '';
+            const img = new Image();
+            img.onload = function() {
+                sizes.forEach(({ size, platform }) => {
+                    const canvas = document.createElement('canvas');
+                    canvas.width = size;
+                    canvas.height = size;
+                    const ctx = canvas.getContext('2d');
+
+                    // Draw with high quality
+                    ctx.imageSmoothingEnabled = true;
+                    ctx.imageSmoothingQuality = 'high';
+                    ctx.drawImage(img, 0, 0, size, size);
+
+                    const card = document.createElement('div');
+                    card.className = 'icon-card';
+
+                    // Show a preview (max 128px display)
+                    const previewSize = Math.min(size, 128);
+                    canvas.style.width = previewSize + 'px';
+                    canvas.style.height = previewSize + 'px';
+
+                    const label = document.createElement('div');
+                    label.className = 'label';
+                    label.textContent = size + ' × ' + size;
+
+                    const platformLabel = document.createElement('div');
+                    platformLabel.className = 'platform';
+                    platformLabel.textContent = platform;
+
+                    const link = document.createElement('a');
+                    link.textContent = 'Download';
+                    link.download = 'icon-' + size + '.png';
+                    link.href = canvas.toDataURL('image/png');
+
+                    card.appendChild(canvas);
+                    card.appendChild(label);
+                    card.appendChild(platformLabel);
+                    card.appendChild(link);
+                    grid.appendChild(card);
+                });
+
+                downloadAllBtn.style.display = 'inline-block';
+            };
+            img.src = 'icon.svg';
+        }
+
+        function downloadAllIcons() {
+            const links = grid.querySelectorAll('a');
+            links.forEach((link, i) => {
+                setTimeout(() => link.click(), i * 200);
+            });
+        }
+    </script>
+</body>
+</html>

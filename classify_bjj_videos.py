@@ -186,7 +186,7 @@ BJJ_GLOSSARY = {
     "collar_sleeve_guard": ["collar sleeve guard", "collar-sleeve guard",
         "garde col manche", "collar-sleeve", "collar sleeve", "col manche", "collar & sleeve", "collar and sleeve"],
     "crab_ride": [
-        "crab ride", "crab-ride",
+        "crab ride", "crab-ride", "crabride",
         "crab ride", "crabe", "crab rides"
     ],
     "octopus_guard": ["octopus", "pieuvre"],
@@ -251,7 +251,9 @@ BJJ_GLOSSARY = {
         "speed pass", "quick pass", "dynamic passing",
         "passage rapide", "passage dynamique"
     ],
-
+    "cross_step_pass" : [
+        "cross step pass", "cross-step pass", "cross step",
+    ],
     # --- Classic Fundamental Passes ---
     "knee_slice": [
         "knee slice", "knee-slice", "knee cut", "knee-cut", "knee slide", "knee slide pass",
@@ -270,7 +272,7 @@ BJJ_GLOSSARY = {
         "dessus dessous", "dessus-dessous"
     ],
     "stack_pass": [
-        "stack pass", "stack-pass", "stacking", "stacking pass",
+        "stack pass", "stack-pass", "stacking", "stacking pass", "half stack pass",
         "passage empilé", "passage empile", "empilement"
     ],
     "double_under": [
@@ -517,7 +519,7 @@ BJJ_GLOSSARY = {
         "balayage hanche", "bump de hanche"
     ],
     "flower_sweep": [
-        "flower sweep", "flower-sweep", "pendulum sweep",
+        "flower sweep", "flower-sweep", "pendulum sweep", "lotus flower sweep",
         "balayage fleur"
     ],
     "balloon_sweep": [
@@ -753,6 +755,8 @@ BJJ_GLOSSARY = {
     "arm_triangle": [
         "arm triangle", "kata gatame", "head and arm choke", "arm head choke", "bras tête", "bras tete", "arm triangles"
     ],
+    "ninja_choke": [
+        "ninja choke"],
     "anaconda": [
         "anaconda", "anaconda choke", "anacondas"
     ],
@@ -780,7 +784,7 @@ BJJ_GLOSSARY = {
         "bow and arrow", "bow-and-arrow", "bow and arrow choke", "arc et flèche", "arc-et-flèche", "arc et fleche", "bow & arrow", "bow & arrows"
     ],
     "cross_collar_choke": [
-        "cross collar choke", "cross-collar choke", "x choke", "juji jime"
+        "cross collar choke", "cross-collar choke", "x choke", "juji jime", "cross choke"
     ],
     "paper_cutter": [
         "paper cutter", "paper-cutter choke", "cross-face choke"
@@ -925,7 +929,7 @@ BJJ_GLOSSARY = {
         "leg lock", "leg-lock", "leg attack", "leg locks", "leg attacks", "leg submissions", "leg submission", "clé de jambe", "cle de jambe"
     ],
     "back_attack": [
-        "back attack", "back-attack"
+        "back attack", "back-attack", "from the back", "back submissions", "back submission"
     ],
     "shoulder_lock": [
         "shoulder lock", "shoulder-lock", "shoulder attacks", "shoulder submission", "shoulder submissions"
@@ -1067,6 +1071,7 @@ CATEGORY_GROUPS = {
 "guard_pass",
 "pressure_pass",
 "speed_pass",
+"cross_step_pass",
 "knee_slice",
 "toreando",
 "leg_drag",
@@ -1144,6 +1149,7 @@ CATEGORY_GROUPS = {
 "anaconda",
 "darce",
 "ezekiel",
+"ninja_choke",
 "guillotine",
 "marcelotine",
 "hindulotine",

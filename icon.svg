@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a0e27"/>
+      <stop offset="100%" stop-color="#1a1f3a"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f0d060"/>
+      <stop offset="100%" stop-color="#d4af37"/>
+    </linearGradient>
+    <linearGradient id="belt" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1a1a1a"/>
+      <stop offset="100%" stop-color="#333333"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background with rounded corners (app icon shape) -->
+  <rect width="512" height="512" rx="90" ry="90" fill="url(#bg)"/>
+
+  <!-- Subtle grid pattern -->
+  <g opacity="0.06">
+    <line x1="0" y1="128" x2="512" y2="128" stroke="#d4af37" stroke-width="0.5"/>
+    <line x1="0" y1="256" x2="512" y2="256" stroke="#d4af37" stroke-width="0.5"/>
+    <line x1="0" y1="384" x2="512" y2="384" stroke="#d4af37" stroke-width="0.5"/>
+    <line x1="128" y1="0" x2="128" y2="512" stroke="#d4af37" stroke-width="0.5"/>
+    <line x1="256" y1="0" x2="256" y2="512" stroke="#d4af37" stroke-width="0.5"/>
+    <line x1="384" y1="0" x2="384" y2="512" stroke="#d4af37" stroke-width="0.5"/>
+  </g>
+
+  <!-- Outer gold ring -->
+  <circle cx="256" cy="230" r="155" fill="none" stroke="url(#gold)" stroke-width="6" opacity="0.3"/>
+
+  <!-- Judogi / Gi silhouette -->
+  <g transform="translate(256, 210)" fill="url(#gold)">
+    <!-- Left lapel -->
+    <path d="M-12,-80 L-55,-55 L-50,10 L-20,20 L-12,20 Z" opacity="0.95"/>
+    <!-- Right lapel -->
+    <path d="M12,-80 L55,-55 L50,10 L20,20 L12,20 Z" opacity="0.95"/>
+    <!-- Collar V -->
+    <path d="M-12,-80 L0,-50 L12,-80 Z" fill="#0a0e27"/>
+    <!-- Body -->
+    <rect x="-50" y="20" width="100" height="70" rx="5" opacity="0.95"/>
+    <!-- Left sleeve -->
+    <rect x="-85" y="-50" width="38" height="65" rx="8" transform="rotate(-15, -66, -18)" opacity="0.85"/>
+    <!-- Right sleeve -->
+    <rect x="47" y="-50" width="38" height="65" rx="8" transform="rotate(15, 66, -18)" opacity="0.85"/>
+    <!-- Belt -->
+    <rect x="-52" y="28" width="104" height="12" rx="2" fill="#1a1a1a"/>
+    <!-- Belt knot -->
+    <path d="M5,28 L15,20 L15,50 L5,40 Z" fill="#1a1a1a"/>
+    <path d="M5,28 L-5,20 L-5,50 L5,40 Z" fill="#2a2a2a"/>
+  </g>
+
+  <!-- "BJJ" text -->
+  <text x="256" y="375" text-anchor="middle" font-family="'Segoe UI', Arial, sans-serif" font-weight="800" font-size="56" fill="url(#gold)" letter-spacing="8">BJJ</text>
+
+  <!-- "FOUNDATION" text -->
+  <text x="256" y="410" text-anchor="middle" font-family="'Segoe UI', Arial, sans-serif" font-weight="600" font-size="22" fill="#a8a8a8" letter-spacing="12">FOUNDATION</text>
+
+  <!-- Gold border accent -->
+  <rect width="512" height="512" rx="90" ry="90" fill="none" stroke="#d4af37" stroke-width="3" opacity="0.4"/>
+</svg>
