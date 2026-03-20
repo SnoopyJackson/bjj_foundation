@@ -17,14 +17,14 @@ import time
 API_KEY = os.environ.get('YOUTUBE_API_KEY')
 
 # List of BJJ channels to scrape
-BJJ_CHANNELS = ["@JonThomasBJJ",
+BJJ_CHANNELS = ["@JonThomasBJJ","@ArnaudPiétéUnidade",
     "@TarikBJJ"
     , "@JordanTeachesJiujitsu", "@DefensiveBJJ", "@LachlanGilesBJJ", "@KeenanCornelius", "@WrestlingUniversity", "@LIMIBJJ", "@jjbcanape", "@josephbreza-grappling9459", "@shintaronakano2842", "@FrenchGuianajiu-jitsuTV",
     "@InvisibleJiuJitsu", "@kurtosiander", "@Chewjitsu", "@BJJFanatics", "@BJJScout", "@LEONLARMAN", "@DubiousDom", "@Heather_MorganBJJ",
     "@GracieBreakdown", "@BJJLibrary", "@BernardoFariaBJJ", "@MMALeech", "@ZombieProofBJJ", "jonathan_bjj", "@BJJHEAVY-t8h", "Phenix_technique",
     "@Wardziak", "@EnergiaMartialArts", "@vincenguyenbjj", "@Grapplers_Guide", "@atosjiujitsuhq", "@bzglick", "@Shigashi84",
     "@BTeamJiuJitsu", "@BJJGlobetrotters", "@JiuJitsuInMinutesbyJasonScully", "@SticksandStonesBJJ", "@EnergiaMartialArts"
-    "@nathanorchard10p", "@ArnaudPiétéUnidade", "@YoshiJiuJitsuTech", "@zukaBJJ", "@yogaforbjj", "@darkhorsemartialarts","@roydean", "@1MinuteJiuJitsu","@samir.bensaid", "@ArtofJiuJitsu", "@mendesbros", "@Submissions101", "@DeepDiveJJ",
+    "@nathanorchard10p",  "@YoshiJiuJitsuTech", "@zukaBJJ", "@yogaforbjj", "@darkhorsemartialarts","@roydean", "@1MinuteJiuJitsu","@samir.bensaid", "@ArtofJiuJitsu", "@mendesbros", "@Submissions101", "@DeepDiveJJ",
 "@BJJTrickster", "@poundforpoundmunich", "@BirdWiltseBjj", "@10thplanetnetwork42", "@brandonmcninja", "@10thPlanetBathNY", "@twistereddie","@Gordonlovesjiujitsu", "@lutaonthemat", "@JiuJitsuFlo" ,  "@TeachMeGrapping"#, "UCBNsOFfO-TZDIpygfz5paa"
 ]
 
